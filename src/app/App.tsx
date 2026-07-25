@@ -210,9 +210,9 @@ function Navbar({ page, setPage }: { page: Page; setPage: (p: Page) => void }) {
 
           {/* CTA + Mobile Menu */}
           <div className="flex items-center gap-3">
-            <a href="tel:+923001234567" className="hidden md:flex items-center gap-2 text-sm text-slate-600 font-medium hover:text-[#1E56A0] transition-colors">
+            <a href="tel:+923405463601" className="hidden md:flex items-center gap-2 text-sm text-slate-600 font-medium hover:text-[#1E56A0] transition-colors">
               <PhoneCall className="w-4 h-4" />
-              <span>0300-1234567</span>
+              <span>0340-5463601</span>
             </a>
             <button onClick={() => go("contact")} className="hidden sm:block bg-[#1E56A0] hover:bg-[#0F2B4C] text-white text-sm font-semibold px-4 py-2 rounded transition-colors duration-200">
               Contact Us
@@ -560,7 +560,7 @@ function HomePage({ setPage, setSelectedCar }: { setPage: (p: Page) => void; set
               <button onClick={() => { setPage("sell"); window.scrollTo({ top: 0 }); }} className="bg-[#1E56A0] hover:bg-blue-500 text-white font-bold text-sm px-6 py-3.5 rounded transition-colors flex items-center gap-2">
                 Get Free Valuation <ArrowRight className="w-4 h-4" />
               </button>
-              <a href="https://wa.me/923001234567" className="flex items-center gap-2 bg-[#25D366] hover:bg-green-400 text-white font-bold text-sm px-6 py-3.5 rounded transition-colors">
+              <a href="https://wa.me/923405463601?text=Assalam-o-Alaikum, mujhe aapki dealership se gaari kharidne ki details chahiye." className="flex items-center gap-2 bg-[#25D366] hover:bg-green-400 text-white font-bold text-sm px-6 py-3.5 rounded transition-colors">
                 <MessageCircle className="w-4 h-4" /> WhatsApp Us
               </a>
             </div>
@@ -707,7 +707,7 @@ function InventoryPage({ setPage, setSelectedCar }: { setPage: (p: Page) => void
 
                     <div className="mt-auto flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
                       <button className="bg-[#0F2B4C] hover:bg-[#1E56A0] text-white text-xs font-bold px-5 py-2.5 rounded-lg transition-colors flex items-center gap-2">View Details <ArrowRight className="w-3.5 h-3.5" /></button>
-                      <button className="border border-slate-200 hover:border-[#25D366] text-slate-600 hover:text-[#25D366] hover:bg-green-50 text-xs font-bold px-5 py-2.5 rounded-lg transition-colors flex items-center gap-2" onClick={e => { e.stopPropagation(); window.open("https://wa.me/923001234567"); }}><MessageCircle className="w-4 h-4" />WhatsApp</button>
+                      <button className="border border-slate-200 hover:border-[#25D366] text-slate-600 hover:text-[#25D366] hover:bg-green-50 text-xs font-bold px-5 py-2.5 rounded-lg transition-colors flex items-center gap-2" onClick={e => { e.stopPropagation(); window.open(`https://wa.me/923405463601?text=Assalam-o-Alaikum, mujhe is gaari ki details chahiye: ${v.make} ${v.model} ${v.year}`); }}><MessageCircle className="w-4 h-4" />WhatsApp</button>
                     </div>
                   </div>
                 </div>
@@ -904,11 +904,11 @@ function CarDetailsPage({ car, setPage }: { car: Vehicle; setPage: (p: Page) => 
                 <button className="w-full bg-[#0F2B4C] hover:bg-[#1E56A0] text-white font-bold text-sm py-3 rounded transition-colors flex items-center justify-center gap-2">
                   <Car className="w-4 h-4" /> Book a Test Drive
                 </button>
-                <a href="https://wa.me/923001234567" className="flex items-center justify-center gap-2 w-full bg-[#25D366] hover:bg-green-400 text-white font-bold text-sm py-3 rounded transition-colors">
+                <a href={`https://wa.me/923405463601?text=Assalam-o-Alaikum, mujhe is gaari ke baray mein mazeed maloomat chahiye: ${car.make} ${car.model} ${car.year}`} className="flex items-center justify-center gap-2 w-full bg-[#25D366] hover:bg-green-400 text-white font-bold text-sm py-3 rounded transition-colors">
                   <MessageCircle className="w-4 h-4" /> WhatsApp Inquiry
                 </a>
-                <a href="tel:+923001234567" className="flex items-center justify-center gap-2 w-full border border-slate-200 text-slate-700 hover:border-slate-300 font-semibold text-sm py-3 rounded transition-colors">
-                  <Phone className="w-4 h-4" /> 0300-1234567
+                <a href="tel:+923405463601" className="flex items-center justify-center gap-2 w-full border border-slate-200 text-slate-700 hover:border-slate-300 font-semibold text-sm py-3 rounded transition-colors">
+                  <Phone className="w-4 h-4" /> 0340-5463601
                 </a>
               </div>
 
@@ -1419,8 +1419,8 @@ function ContactPage({ setPage }: { setPage: (p: Page) => void }) {
             {/* Info */}
             <div className="space-y-5">
               {[
-                { icon: Phone, title: "Phone", lines: ["0300-1234567", "042-35761234", "Mon–Sat: 9AM–7PM"] },
-                { icon: MessageCircle, title: "WhatsApp", lines: ["0300-1234567", "Available 9AM–10PM", "Quick response guaranteed"] },
+                { icon: Phone, title: "Phone", lines: ["0340-5463601", "042-35761234", "Mon–Sat: 9AM–7PM"] },
+                { icon: MessageCircle, title: "WhatsApp", lines: ["0340-5463601", "Available 9AM–10PM", "Quick response guaranteed"] },
                 { icon: Mail, title: "Email", lines: ["info@xyzmotors.pk", "sales@xyzmotors.pk", "Response within 24 hours"] },
                 { icon: MapPin, title: "Head Office — Lahore", lines: ["Main Boulevard, Gulberg III", "Lahore, Punjab 54000", "Mon–Sat: 9:00 AM – 7:00 PM"] },
               ].map(({ icon: Icon, title, lines }) => (
@@ -1509,7 +1509,7 @@ function ContactPage({ setPage }: { setPage: (p: Page) => void }) {
                     <button type="submit" className="flex-1 bg-[#1E56A0] hover:bg-[#0F2B4C] text-white font-bold text-sm py-3 rounded transition-colors flex items-center justify-center gap-2">
                       Send Message <ArrowRight className="w-4 h-4" />
                     </button>
-                    <a href="https://wa.me/923001234567" className="flex-1 bg-[#25D366] hover:bg-green-400 text-white font-bold text-sm py-3 rounded transition-colors flex items-center justify-center gap-2">
+                    <a href="https://wa.me/923405463601?text=Assalam-o-Alaikum, mujhe apni gaari sell karni hai. Tafseelaat bata dein." className="flex-1 bg-[#25D366] hover:bg-green-400 text-white font-bold text-sm py-3 rounded transition-colors flex items-center justify-center gap-2">
                       <MessageCircle className="w-4 h-4" />WhatsApp Directly
                     </a>
                   </div>
@@ -1945,7 +1945,7 @@ export default function App() {
       {adminOpen && <AdminDashboard adminAuth={adminAuth} setAdminAuth={setAdminAuth} setAdminOpen={setAdminOpen} forceUpdate={forceUpdate} />}
       {/* WhatsApp FAB */}
       <a
-        href="https://wa.me/923001234567"
+        href="https://wa.me/923405463601?text=Assalam-o-Alaikum, mujhe XYZ Motors se rabta karna hai."
         target="_blank"
         rel="noreferrer"
         className="fixed bottom-6 right-6 w-14 h-14 bg-[#25D366] hover:bg-green-400 rounded-full flex items-center justify-center shadow-xl z-50 transition-all duration-200 hover:scale-110"
