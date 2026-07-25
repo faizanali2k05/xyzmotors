@@ -13,7 +13,7 @@ import {
 import xyzLogo from "@/imports/image.png";
 
 // ─── TYPES ────────────────────────────────────────────────────────────────────
-type Page = "home" | "inventory" | "details" | "rental" | "sell" | "finance" | "about" | "blog" | "contact";
+type Page = "home" | "inventory" | "details" | "rental" | "sell" | "about" | "blog" | "contact";
 
 interface Vehicle {
   id: number;
@@ -58,11 +58,11 @@ let VEHICLES: Vehicle[] = [
 
 const TESTIMONIALS = [
   { id: 1, name: "Ahsan Iqbal", city: "Lahore", rating: 5, text: "Exceptional experience from start to finish. The team at XYZ Motors made buying my Toyota Fortuner incredibly smooth. Transparent pricing with no hidden charges.", avatar: "AI", car: "Toyota Fortuner 2024" },
-  { id: 2, name: "Sana Mahmood", city: "Karachi", rating: 5, text: "I was impressed by the professionalism and product knowledge of the staff. Got my Honda Civic financed through Meezan Bank at a great rate. Highly recommend!", avatar: "SM", car: "Honda Civic 2024" },
+  { id: 2, name: "Sana Mahmood", city: "Karachi", rating: 5, text: "I was impressed by the professionalism and product knowledge of the staff. The purchasing process was quick and completely hassle free. Highly recommend!", avatar: "SM", car: "Honda Civic 2024" },
   { id: 3, name: "Farhan Khalid", city: "Islamabad", rating: 5, text: "XYZ Motors handled my car exchange seamlessly. Got a fair price for my old vehicle and a great deal on the new KIA Sportage. The entire process took just 2 days!", avatar: "FK", car: "KIA Sportage 2024" },
   { id: 4, name: "Rabia Noor", city: "Rawalpindi", rating: 4, text: "The rental service is excellent for those short business trips to Lahore. Clean, well maintained vehicles delivered right to my office. Will definitely use again.", avatar: "RN", car: "Toyota Corolla Rental" },
   { id: 5, name: "Usman Tariq", city: "Faisalabad", rating: 5, text: "Bought a used Toyota Prado and it was thoroughly inspected and certified before delivery. Zero issues after 6 months. The post sale service is also outstanding.", avatar: "UT", car: "Toyota Prado 2023" },
-  { id: 6, name: "Nadia Riaz", city: "Multan", rating: 5, text: "The finance calculator on their website helped me plan my budget perfectly. Got approved for a loan within 48 hours through HBL. Smooth process all the way.", avatar: "NR", car: "Hyundai Tucson 2024" },
+  { id: 6, name: "Nadia Riaz", city: "Multan", rating: 5, text: "The website helped me find the perfect car for my family. Got my vehicle delivered within 48 hours. Smooth process all the way.", avatar: "NR", car: "Hyundai Tucson 2024" },
 ];
 
 
@@ -91,7 +91,7 @@ const RENTAL_PLANS = [
 const TEAM = [
   { name: "Muhammad Imran", role: "CEO & Founder", img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=face" },
   { name: "Tariq Mehmood", role: "General Manager", img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face" },
-  { name: "Sara Ahmed", role: "Head of Finance", img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop&crop=face" },
+  { name: "Sara Ahmed", role: "Head of Operations", img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop&crop=face" },
   { name: "Bilal Hassan", role: "Fleet Manager", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face" },
 ];
 
@@ -175,7 +175,6 @@ function Navbar({ page, setPage }: { page: Page; setPage: (p: Page) => void }) {
   const navLinks: { label: string; page: Page }[] = [
     { label: "Inventory", page: "inventory" },
     { label: "Rental", page: "rental" },
-    { label: "Finance", page: "finance" },
     { label: "Sell Your Car", page: "sell" },
     { label: "About Us", page: "about" },
     
@@ -316,7 +315,7 @@ function HomePage({ setPage, setSelectedCar }: { setPage: (p: Page) => void; set
               Today.
             </h1>
             <p className="mt-6 text-base md:text-lg text-slate-300 leading-relaxed max-w-lg">
-              XYZ Motors offers Pakistan's finest selection of new, used, and certified pre owned vehicles — with transparent pricing, bank financing, and doorstep delivery.
+              XYZ Motors offers Pakistan's finest selection of new, used, and certified pre owned vehicles — with transparent pricing, and doorstep delivery.
             </p>
 
             {/* Search bar */}
@@ -360,14 +359,7 @@ function HomePage({ setPage, setSelectedCar }: { setPage: (p: Page) => void; set
           </div>
         </div>
 
-        {/* Floating card */}
-        <div className="absolute bottom-6 right-6 hidden lg:block bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 max-w-[200px]">
-          <div className="flex items-center gap-2 mb-2">
-            {[1,2,3,4,5].map(i => <Star key={i} className="w-3 h-3 fill-amber-400 text-amber-400" />)}
-          </div>
-          <p className="text-xs text-white font-medium">"Best car dealership in Lahore!"</p>
-          <p className="text-[10px] text-slate-400 mt-1">— Ahsan Iqbal, Lahore</p>
-        </div>
+
       </section>
 
       {/* FEATURED CATEGORIES */}
@@ -382,7 +374,7 @@ function HomePage({ setPage, setSelectedCar }: { setPage: (p: Page) => void; set
               { icon: Wrench, label: "Pickups", count: 2 },
               { icon: Wallet, label: "Budget Cars", count: 5 },
             ].map(({ icon: Icon, label, count }) => (
-              <button key={label} onClick={() => setPage("inventory")} className="flex items-center gap-3 py-2 px-4 rounded-full bg-slate-50 hover:bg-[#1E56A0] group transition-all duration-200 border border-slate-200 hover:border-[#1E56A0] flex-shrink-0 snap-center">
+              <button key={label} onClick={() => setPage("inventory")} className="flex items-center gap-3 py-2 px-4 rounded bg-slate-50 hover:bg-[#1E56A0] group transition-all duration-200 border border-slate-200 hover:border-[#1E56A0] flex-shrink-0 snap-center">
                 <Icon className="w-4 h-4 text-[#1E56A0] group-hover:text-white transition-colors" />
                 <span className="text-xs font-bold text-slate-700 group-hover:text-white transition-colors">{label}</span>
               </button>
@@ -463,7 +455,7 @@ function HomePage({ setPage, setSelectedCar }: { setPage: (p: Page) => void; set
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               { icon: Shield, title: "Verified Vehicles", desc: "Every car undergoes a rigorous 150 point inspection before listing. No hidden damage no surprises." },
-              { icon: Banknote, title: "Easy Financing", desc: "Bank loan approvals within 48 hours through HBL UBL Meezan Bank and Bank Alfalah." },
+              { icon: Banknote, title: "Fast Process", desc: "Complete your car purchase in less than 24 hours with our streamlined and efficient process." },
               { icon: Award, title: "Certified Dealership", desc: "PAMA registered and ISO certified dealership with over 18 years of industry presence in Pakistan." },
               { icon: Headphones, title: "24/7 After Sale Support", desc: "Our dedicated support team is available around the clock for any post purchase assistance." },
               { icon: BadgeCheck, title: "Transparent Pricing", desc: "Fixed no negotiation pricing with complete cost breakdown. No hidden fees or surprise charges." },
@@ -870,8 +862,8 @@ function CarDetailsPage({ car, setPage }: { car: Vehicle; setPage: (p: Page) => 
           </div>
 
           {/* Right: Pricing + Actions */}
-          <div className="space-y-5">
-            <div className="bg-white rounded-lg border border-slate-100 shadow-sm p-5 sticky top-20">
+          <div className="space-y-5 sticky top-20">
+            <div className="bg-white rounded-lg border border-slate-100 shadow-sm p-5">
               <p className="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Asking Price</p>
               <p className="text-3xl font-extrabold text-[#1E56A0] mt-1">{formatPKR(car.price)}</p>
               <p className="text-xs text-slate-400 mt-1">All inclusive — no hidden charges</p>
@@ -883,9 +875,6 @@ function CarDetailsPage({ car, setPage }: { car: Vehicle; setPage: (p: Page) => 
                 <a href="https://wa.me/923001234567" className="flex items-center justify-center gap-2 w-full bg-[#25D366] hover:bg-green-400 text-white font-bold text-sm py-3 rounded transition-colors">
                   <MessageCircle className="w-4 h-4" /> WhatsApp Inquiry
                 </a>
-                <button onClick={() => setPage("finance")} className="w-full border border-[#1E56A0] text-[#1E56A0] hover:bg-blue-50 font-bold text-sm py-3 rounded transition-colors flex items-center justify-center gap-2">
-                  <Calculator className="w-4 h-4" /> Apply for Finance
-                </button>
                 <a href="tel:+923001234567" className="flex items-center justify-center gap-2 w-full border border-slate-200 text-slate-700 hover:border-slate-300 font-semibold text-sm py-3 rounded transition-colors">
                   <Phone className="w-4 h-4" /> 0300-1234567
                 </a>
@@ -1256,143 +1245,6 @@ function SellCarPage({ setPage }: { setPage: (p: Page) => void }) {
   );
 }
 
-// ─── FINANCE PAGE ─────────────────────────────────────────────────────────────
-function FinancePage({ setPage }: { setPage: (p: Page) => void }) {
-  const [carPrice, setCarPrice] = useState(4599000);
-  const [downPct, setDownPct] = useState(20);
-  const [tenureYears, setTenureYears] = useState(3);
-  const [selectedBank, setSelectedBank] = useState("HBL");
-
-  const bankRate = { HBL: 22, UBL: 23, Meezan: 24, Alfalah: 22.5, MCB: 23.5, Faysal: 23 }[selectedBank] ?? 22;
-  const downAmt = (carPrice * downPct) / 100;
-  const principal = carPrice - downAmt;
-  const emi = calcEMI(principal, bankRate, tenureYears * 12);
-  const totalPayable = emi * tenureYears * 12;
-
-  return (
-    <div className="pt-16 min-h-screen">
-      {/* Hero */}
-      <section style={{ background: "linear-gradient(135deg, #060E1A 0%, #0F2B4C 100%)" }} className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="text-xs font-bold tracking-[0.2em] uppercase text-blue-300">Car Financing</span>
-          <h1 className="mt-3 text-4xl md:text-5xl font-extrabold text-white">Drive Now, Pay in Easy Installments</h1>
-          <p className="mt-4 text-blue-200 max-w-xl mx-auto">Pakistan's leading banks. Flexible tenures. Transparent rates. Approval within 48 hours.</p>
-        </div>
-      </section>
-
-      {/* Calculator */}
-      <section className="py-16 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-            <div>
-              <h2 className="text-2xl font-bold text-[#0D1B2A] mb-6 flex items-center gap-2"><Calculator className="w-6 h-6 text-[#1E56A0]" />Loan Calculator</h2>
-
-              <div className="space-y-6">
-                <div>
-                  <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-2">Vehicle Price (PKR)</label>
-                  <input type="number" value={carPrice} onChange={e => setCarPrice(parseInt(e.target.value) || 0)} className="w-full border border-slate-200 rounded px-3 py-3 text-sm font-semibold text-[#0D1B2A] outline-none focus:border-[#1E56A0]" />
-                  <p className="text-xs text-slate-400 mt-1">{formatPKR(carPrice)}</p>
-                </div>
-                <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Down Payment</label>
-                    <span className="text-xs font-bold text-[#1E56A0]">{downPct}% — {formatPKR(downAmt)}</span>
-                  </div>
-                  <input type="range" min={15} max={50} value={downPct} onChange={e => setDownPct(parseInt(e.target.value))} className="w-full accent-[#1E56A0]" />
-                  <div className="flex justify-between text-[10px] text-slate-400 mt-1"><span>15%</span><span>50%</span></div>
-                </div>
-                <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Loan Tenure</label>
-                    <span className="text-xs font-bold text-[#1E56A0]">{tenureYears} Year{tenureYears > 1 ? "s" : ""}</span>
-                  </div>
-                  <div className="flex gap-2">
-                    {[1, 2, 3, 4, 5].map(y => (
-                      <button key={y} onClick={() => setTenureYears(y)} className={`flex-1 py-2 rounded text-sm font-bold transition-colors ${tenureYears === y ? "bg-[#0F2B4C] text-white" : "bg-slate-100 text-slate-500 hover:bg-slate-200"}`}>{y}Y</button>
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-2">Select Bank</label>
-                  <div className="grid grid-cols-3 gap-2">
-                    {BANKS.map(bank => (
-                      <button key={bank.name} onClick={() => setSelectedBank(bank.name)} className={`py-2.5 px-3 rounded border-2 text-sm font-bold transition-all ${selectedBank === bank.name ? "border-[#1E56A0] bg-blue-50 text-[#1E56A0]" : "border-slate-200 text-slate-600 hover:border-slate-300"}`}>
-                        {bank.name}
-                      </button>
-                    ))}
-                  </div>
-                  <p className="text-xs text-slate-400 mt-2">Rate: {bankRate}% per annum (markup-based financing)</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Result */}
-            <div className="lg:pl-8 lg:border-l border-slate-100">
-              <h2 className="text-2xl font-bold text-[#0D1B2A] mb-6">Financing Summary</h2>
-              <div className="bg-[#F1F5F9] rounded-xl p-6 space-y-4">
-                {[["Vehicle Price", formatPKR(carPrice)], ["Down Payment", formatPKR(downAmt)], ["Loan Amount", formatPKR(principal)], ["Annual Rate", `${bankRate}%`], ["Loan Tenure", `${tenureYears} Year${tenureYears > 1 ? "s" : ""} (${tenureYears * 12} months)`]].map(([k, v]) => (
-                  <div key={String(k)} className="flex justify-between items-center py-2 border-b border-slate-200 last:border-0">
-                    <span className="text-sm text-slate-500">{k}</span>
-                    <span className="text-sm font-bold text-[#0D1B2A]">{v}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-5 bg-[#0F2B4C] rounded-xl p-6 text-center">
-                <p className="text-blue-300 text-xs font-bold uppercase tracking-wider mb-2">Monthly Installment</p>
-                <p className="text-4xl font-extrabold text-white">{formatPKR(Math.round(emi))}</p>
-                <p className="text-blue-300 text-xs mt-2">Total Payable: {formatPKR(Math.round(totalPayable))}</p>
-                <p className="text-blue-400 text-[10px] mt-1">Total Interest: {formatPKR(Math.round(totalPayable - principal))}</p>
-              </div>
-
-              <button className="mt-5 w-full bg-[#1E56A0] hover:bg-[#0F2B4C] text-white font-bold py-3.5 rounded transition-colors text-sm flex items-center justify-center gap-2">
-                Apply for This Loan <ArrowRight className="w-4 h-4" />
-              </button>
-              <p className="text-[11px] text-slate-400 text-center mt-3">* Indicative calculation only. Subject to bank terms and credit assessment.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Bank Details */}
-      <section className="py-16 bg-[#F8FAFC]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader eyebrow="Partner Banks" title="Financing Options by Major Banks" subtitle="Compare rates and packages from Pakistan's leading financial institutions." />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {[
-              { name: "HBL", fullName: "Habib Bank Limited", rate: "22%", tenure: "1–5 Years", minDown: "15%", processing: "Rs. 5,000", color: "#006633", features: ["Fastest approval", "Doorstep service", "Special salary account rates"] },
-              { name: "Meezan Bank", fullName: "Meezan Bank (Islamic)", rate: "24%", tenure: "1–5 Years", minDown: "20%", processing: "Rs. 3,500", color: "#C41E3A", features: ["Shariah-compliant financing", "Diminishing Musharakah", "No penalty on early payment"] },
-              { name: "Bank Alfalah", fullName: "Bank Alfalah", rate: "22.5%", tenure: "1–5 Years", minDown: "15%", processing: "Rs. 4,000", color: "#004F9F", features: ["New & used cars", "Flexible payment plans", "Online application available"] },
-              { name: "UBL", fullName: "United Bank Limited", rate: "23%", tenure: "1–5 Years", minDown: "20%", processing: "Rs. 4,500", color: "#003580", features: ["Quick processing", "UBL Wallet integration", "Insurance bundled"] },
-              { name: "MCB Bank", fullName: "MCB Bank", rate: "23.5%", tenure: "1–4 Years", minDown: "20%", processing: "Rs. 5,000", color: "#8B0000", features: ["Competitive rates", "Salary transfer required", "MCB app management"] },
-              { name: "Faysal Bank", fullName: "Faysal Bank (Islamic)", rate: "23%", tenure: "1–5 Years", minDown: "15%", processing: "Rs. 4,000", color: "#FF6B00", features: ["Islamic banking", "Easy documentation", "Nationwide branches"] },
-            ].map(bank => (
-              <div key={bank.name} className="bg-white rounded-lg border border-slate-100 shadow-sm p-5 hover:shadow-md transition-shadow">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-10 rounded-lg flex items-center justify-center" style={{ background: bank.color + "15" }}>
-                    <span className="text-sm font-extrabold" style={{ color: bank.color }}>{bank.name.split(" ")[0]}</span>
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-[#0D1B2A]">{bank.fullName}</p>
-                    <p className="text-xs text-slate-400">Markup Rate: <span className="font-bold text-[#1E56A0]">{bank.rate} p.a.</span></p>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-2 mb-4 text-xs">
-                  <div className="bg-slate-50 rounded p-2"><p className="text-slate-400">Tenure</p><p className="font-bold text-[#0D1B2A]">{bank.tenure}</p></div>
-                  <div className="bg-slate-50 rounded p-2"><p className="text-slate-400">Min. Down</p><p className="font-bold text-[#0D1B2A]">{bank.minDown}</p></div>
-                  <div className="col-span-2 bg-slate-50 rounded p-2"><p className="text-slate-400">Processing Fee</p><p className="font-bold text-[#0D1B2A]">{bank.processing}</p></div>
-                </div>
-                {bank.features.map(f => <p key={f} className="text-xs text-slate-500 flex items-center gap-1.5 mb-1"><Check className="w-3 h-3 text-[#1E56A0]" />{f}</p>)}
-                <button className="w-full mt-4 border border-[#1E56A0] text-[#1E56A0] hover:bg-[#1E56A0] hover:text-white text-xs font-bold py-2 rounded transition-colors">Apply with {bank.name.split(" ")[0]}</button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-}
-
 // ─── ABOUT PAGE ────────────────────────────────────────────────────────────────
 function AboutPage({ setPage }: { setPage: (p: Page) => void }) {
   return (
@@ -1417,7 +1269,7 @@ function AboutPage({ setPage }: { setPage: (p: Page) => void }) {
                 <TrendingUp className="w-6 h-6 text-white" />
               </div>
               <h2 className="text-2xl font-bold text-[#0D1B2A] mb-3">Our Mission</h2>
-              <p className="text-slate-500 text-sm leading-relaxed">To make vehicle ownership accessible, transparent, and stress-free for every Pakistani family. We are committed to delivering honest valuations, verified vehicles, and seamless financing — all under one roof.</p>
+              <p className="text-slate-500 text-sm leading-relaxed">To make vehicle ownership accessible, transparent, and stress-free for every Pakistani family. We are committed to delivering honest valuations, verified vehicles — all under one roof.</p>
             </div>
             <div className="bg-[#0F2B4C] rounded-lg p-8">
               <div className="w-12 h-12 rounded-lg bg-[#1E56A0] flex items-center justify-center mb-5">
@@ -1434,7 +1286,7 @@ function AboutPage({ setPage }: { setPage: (p: Page) => void }) {
               <span className="text-xs font-bold tracking-[0.2em] uppercase text-accent">Our Journey</span>
               <h2 className="mt-2 text-3xl font-bold text-[#0D1B2A] mb-5">From One Showroom to a National Brand</h2>
               <div className="space-y-5">
-                {[["2007", "XYZ Motors founded in Gulberg III, Lahore with a fleet of 20 vehicles and a team of 5 passionate professionals."], ["2012", "Expanded to Karachi and Islamabad. Introduced the first digital inventory system in Pakistan's used car market."], ["2016", "Launched car financing partnerships with HBL, UBL, and Meezan Bank. Reached 1,000 vehicles sold milestone."], ["2020", "Introduced online auction, car rental services, and vehicle home delivery across 6 major cities."], ["2025", "Serving 12,000+ customers. Pakistan's first ISO 9001:2015 certified automotive dealership."]].map(([year, desc]) => (
+                {[["2007", "XYZ Motors founded in Gulberg III, Lahore with a fleet of 20 vehicles and a team of 5 passionate professionals."], ["2012", "Expanded to Karachi and Islamabad. Introduced the first digital inventory system in Pakistan's used car market."], ["2016", "Reached 1,000 vehicles sold milestone."], ["2020", "Introduced online auction, car rental services, and vehicle home delivery across 6 major cities."], ["2025", "Serving 12,000+ customers. Pakistan's first ISO 9001:2015 certified automotive dealership."]].map(([year, desc]) => (
                   <div key={year} className="flex gap-4">
                     <div className="flex-shrink-0 w-12 h-12 rounded-full bg-[#0F2B4C] flex items-center justify-center">
                       <span className="text-[10px] font-bold text-white text-center leading-none">{year}</span>
@@ -1658,16 +1510,38 @@ function ContactPage({ setPage }: { setPage: (p: Page) => void }) {
 const AdminDashboard = ({ adminAuth, setAdminAuth, setAdminOpen, forceUpdate }: any) => {
     const [view, setView] = useState("list");
     const [editCar, setEditCar] = useState<any>(null);
-    
+    const [password, setPassword] = useState("");
+    const [searchQuery, setSearchQuery] = useState("");
+
+    useEffect(() => {
+      document.body.style.overflow = "hidden";
+      return () => { document.body.style.overflow = "unset"; };
+    }, []);
+
     if (!adminAuth) {
       return (
-        <div className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl p-8 max-w-sm w-full">
-            <h2 className="text-xl font-bold mb-4 text-[#0D1B2A]">Admin Login</h2>
-            <input type="password" placeholder="Password" className="w-full border rounded p-2 mb-4 text-[#0D1B2A]" value={password} onChange={e => setPassword(e.target.value)} />
-            <div className="flex gap-2">
-              <button className="flex-1 bg-slate-200 text-[#0D1B2A] p-2 rounded" onClick={() => setAdminOpen(false)}>Cancel</button>
-              <button className="flex-1 bg-blue-600 text-white p-2 rounded" onClick={() => {
+        <div className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl p-8 max-w-sm w-full shadow-2xl">
+            <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mb-6 mx-auto">
+              <Shield className="w-6 h-6 text-[#1E56A0]" />
+            </div>
+            <h2 className="text-xl font-bold mb-6 text-center text-[#0D1B2A]">Admin Authentication</h2>
+            <input 
+              type="password" 
+              placeholder="Enter Admin Password" 
+              className="w-full border border-slate-200 rounded-lg p-3 mb-6 text-[#0D1B2A] focus:outline-none focus:border-[#1E56A0] focus:ring-1 focus:ring-[#1E56A0]" 
+              value={password} 
+              onChange={e => setPassword(e.target.value)}
+              onKeyDown={e => {
+                if (e.key === 'Enter') {
+                  if (password === "xyzadmin") setAdminAuth(true);
+                  else alert("Incorrect Password");
+                }
+              }}
+            />
+            <div className="flex gap-3">
+              <button className="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold p-3 rounded-lg transition-colors" onClick={() => setAdminOpen(false)}>Cancel</button>
+              <button className="flex-1 bg-[#1E56A0] hover:bg-[#0F2B4C] text-white font-semibold p-3 rounded-lg transition-colors" onClick={() => {
                 if (password === "xyzadmin") setAdminAuth(true);
                 else alert("Incorrect Password");
               }}>Login</button>
@@ -1677,74 +1551,222 @@ const AdminDashboard = ({ adminAuth, setAdminAuth, setAdminOpen, forceUpdate }: 
       );
     }
 
+    const filteredVehicles = VEHICLES.filter(v => 
+      v.make.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      v.model.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      v.year.toString().includes(searchQuery)
+    );
+
+    const totalCars = VEHICLES.length;
+    const soldCars = VEHICLES.filter(v => v.badge === "Sold Out").length;
+    const activeCars = totalCars - soldCars;
+
     return (
-      <div className="fixed inset-0 bg-white z-[100] overflow-y-auto text-[#0D1B2A]">
-        <div className="max-w-5xl mx-auto p-6">
-          <div className="flex justify-between items-center mb-8 border-b pb-4">
-            <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-            <div className="flex gap-4">
-              <button onClick={() => { setEditCar({ id: Date.now(), make:"", model:"", variant:"", year:2024, price:0, mileage:0, transmission:"Automatic", fuel:"Petrol", city:"", condition:"New", bodyType:"Sedan", img:"", featured: false, badge: "" }); setView("edit"); }} className="bg-green-600 text-white px-4 py-2 rounded font-bold">+ Add Car</button>
-              <button onClick={() => setAdminOpen(false)} className="bg-red-600 text-white px-4 py-2 rounded font-bold">Close</button>
+      <div className="fixed inset-0 bg-slate-50 z-[100] overflow-y-auto text-[#0D1B2A]">
+        {/* Sticky Header */}
+        <div className="bg-white border-b border-slate-200 sticky top-0 z-10 shadow-sm">
+          <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center flex-wrap gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-[#1E56A0] rounded flex items-center justify-center">
+                <Settings2 className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h1 className="text-xl font-black text-[#0D1B2A] leading-none">XYZ Motors</h1>
+                <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mt-1">Admin Dashboard</p>
+              </div>
+            </div>
+            {view === "list" && (
+              <div className="relative flex-1 max-w-md">
+                <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input 
+                  type="text" 
+                  placeholder="Search by Make, Model or Year..." 
+                  className="w-full pl-9 pr-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-[#1E56A0]"
+                  value={searchQuery}
+                  onChange={e => setSearchQuery(e.target.value)}
+                />
+              </div>
+            )}
+            <div className="flex gap-3">
+              <button onClick={() => { 
+                setEditCar({ id: Date.now(), make:"", model:"", variant:"", year:2024, price:0, mileage:0, transmission:"Automatic", fuel:"Petrol", city:"Lahore", condition:"New", bodyType:"Sedan", img:"", featured: false, badge: "" }); 
+                setView("edit"); 
+              }} className="bg-[#1E56A0] hover:bg-[#0F2B4C] text-white px-5 py-2 rounded-lg font-bold text-sm transition-colors flex items-center gap-2">
+                <Plus className="w-4 h-4" /> Add Car
+              </button>
+              <button onClick={() => setAdminOpen(false)} className="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-5 py-2 rounded-lg font-bold text-sm transition-colors flex items-center gap-2">
+                <X className="w-4 h-4" /> Close
+              </button>
             </div>
           </div>
+        </div>
 
+        <div className="max-w-6xl mx-auto p-6">
           {view === "list" && (
-            <div className="grid gap-4">
-              {VEHICLES.map(v => (
-                <div key={v.id} className="flex items-center gap-4 border p-4 rounded bg-slate-50">
-                  <img src={v.img} alt="car" className="w-24 h-16 object-cover rounded" />
-                  <div className="flex-1">
-                    <h3 className="font-bold">{v.make} {v.model} {v.year}</h3>
-                    <p className="text-sm text-slate-500">Rs. {v.price.toLocaleString()} | {v.condition} {v.badge ? `| Badge: ${v.badge}` : ""}</p>
-                  </div>
-                  <div className="flex gap-2 flex-wrap">
-                    <button onClick={() => { setEditCar({...v}); setView("edit"); }} className="bg-blue-600 text-white px-3 py-1 rounded">Edit</button>
-                    <button onClick={() => {
-                      VEHICLES = VEHICLES.filter(x => x.id !== v.id);
-                      forceUpdate((p: number) => p + 1);
-                    }} className="bg-red-600 text-white px-3 py-1 rounded">Delete</button>
-                    <button onClick={() => {
-                      v.badge = "Sold Out";
-                      forceUpdate((p: number) => p + 1);
-                    }} className="bg-orange-500 text-white px-3 py-1 rounded">Mark Sold</button>
-                    <button onClick={() => {
-                      v.badge = "Hot Sale";
-                      forceUpdate((p: number) => p + 1);
-                    }} className="bg-purple-600 text-white px-3 py-1 rounded">Hot Sale</button>
-                  </div>
+            <>
+              {/* Quick Stats */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                <div className="bg-white p-4 rounded-xl border border-slate-200 flex items-center gap-4">
+                  <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center"><Car className="w-6 h-6 text-[#1E56A0]" /></div>
+                  <div><p className="text-sm font-bold text-slate-400 uppercase">Total Inventory</p><p className="text-2xl font-black text-[#0D1B2A]">{totalCars}</p></div>
                 </div>
-              ))}
-            </div>
+                <div className="bg-white p-4 rounded-xl border border-slate-200 flex items-center gap-4">
+                  <div className="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center"><CheckCircle className="w-6 h-6 text-emerald-500" /></div>
+                  <div><p className="text-sm font-bold text-slate-400 uppercase">Active Listings</p><p className="text-2xl font-black text-[#0D1B2A]">{activeCars}</p></div>
+                </div>
+                <div className="bg-white p-4 rounded-xl border border-slate-200 flex items-center gap-4">
+                  <div className="w-12 h-12 bg-orange-50 rounded-full flex items-center justify-center"><Banknote className="w-6 h-6 text-orange-500" /></div>
+                  <div><p className="text-sm font-bold text-slate-400 uppercase">Sold Out</p><p className="text-2xl font-black text-[#0D1B2A]">{soldCars}</p></div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                <div className="divide-y divide-slate-100">
+                  {filteredVehicles.length === 0 ? (
+                    <div className="p-8 text-center text-slate-500">No vehicles found matching your search.</div>
+                  ) : (
+                    filteredVehicles.map(v => (
+                      <div key={v.id} className="flex flex-col sm:flex-row sm:items-center gap-4 p-4 hover:bg-slate-50 transition-colors">
+                        <img src={v.img} alt="car" className="w-28 h-20 object-cover rounded-md border border-slate-200 flex-shrink-0" />
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <h3 className="font-bold text-[#0D1B2A] text-lg leading-none">{v.make} {v.model} <span className="font-medium text-slate-500">{v.year}</span></h3>
+                            {v.featured && <Star className="w-4 h-4 fill-amber-400 text-amber-400" title="Featured" />}
+                            {v.badge && <span className={`px-2 py-0.5 text-[10px] font-bold rounded-sm uppercase ${v.badge === "Sold Out" ? "bg-orange-100 text-orange-700" : "bg-blue-100 text-[#1E56A0]"}`}>{v.badge}</span>}
+                          </div>
+                          <p className="text-sm text-slate-500 font-medium mb-1">
+                            {v.variant} • Rs. {v.price.toLocaleString()} • {v.city}
+                          </p>
+                        </div>
+                        <div className="flex flex-wrap gap-2 sm:justify-end max-w-sm">
+                          <button onClick={() => { setEditCar({...v}); setView("edit"); }} className="bg-white border border-slate-200 hover:border-[#1E56A0] text-slate-600 px-2.5 py-1.5 rounded text-xs font-bold transition-colors">Edit</button>
+                          <button onClick={() => {
+                            const newCar = { ...v, id: Date.now(), badge: "" };
+                            VEHICLES.unshift(newCar);
+                            forceUpdate((p: number) => p + 1);
+                          }} className="bg-white border border-slate-200 hover:border-[#1E56A0] text-slate-600 px-2.5 py-1.5 rounded text-xs font-bold transition-colors" title="Duplicate Car">Copy</button>
+                          
+                          <button onClick={() => {
+                            v.featured = !v.featured;
+                            forceUpdate((p: number) => p + 1);
+                          }} className="bg-white border border-slate-200 hover:border-amber-400 text-slate-600 px-2.5 py-1.5 rounded text-xs font-bold transition-colors">
+                            {v.featured ? "Unfeature" : "Feature"}
+                          </button>
+
+                          {v.badge ? (
+                            <button onClick={() => {
+                              v.badge = "";
+                              forceUpdate((p: number) => p + 1);
+                            }} className="bg-slate-100 text-slate-600 hover:bg-slate-200 px-2.5 py-1.5 rounded text-xs font-bold transition-colors">Clear Badge</button>
+                          ) : (
+                            <>
+                              <button onClick={() => {
+                                v.badge = "Hot Sale";
+                                forceUpdate((p: number) => p + 1);
+                              }} className="bg-purple-50 text-purple-600 border border-purple-200 hover:bg-purple-600 hover:text-white px-2.5 py-1.5 rounded text-xs font-bold transition-colors">Hot Sale</button>
+                              <button onClick={() => {
+                                v.badge = "Sold Out";
+                                forceUpdate((p: number) => p + 1);
+                              }} className="bg-orange-50 text-orange-600 border border-orange-200 hover:bg-orange-500 hover:text-white px-2.5 py-1.5 rounded text-xs font-bold transition-colors">Sold</button>
+                            </>
+                          )}
+                          
+                          <button onClick={() => {
+                            if(confirm('Are you sure you want to delete this car?')) {
+                              VEHICLES = VEHICLES.filter(x => x.id !== v.id);
+                              forceUpdate((p: number) => p + 1);
+                            }
+                          }} className="bg-red-50 text-red-600 border border-red-200 hover:bg-red-600 hover:text-white px-2.5 py-1.5 rounded text-xs font-bold transition-colors">Delete</button>
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+            </>
           )}
 
           {view === "edit" && editCar && (
-            <div className="max-w-2xl bg-slate-50 p-6 rounded border">
-              <h2 className="font-bold mb-4">{editCar.id > 1000 ? "Add New Car" : "Edit Car"}</h2>
-              <div className="grid grid-cols-2 gap-4 mb-4">
-                <input placeholder="Make" value={editCar.make} onChange={e => setEditCar({...editCar, make: e.target.value})} className="border p-2 rounded" />
-                <input placeholder="Model" value={editCar.model} onChange={e => setEditCar({...editCar, model: e.target.value})} className="border p-2 rounded" />
-                <input placeholder="Variant" value={editCar.variant} onChange={e => setEditCar({...editCar, variant: e.target.value})} className="border p-2 rounded" />
-                <input placeholder="Year" type="number" value={editCar.year} onChange={e => setEditCar({...editCar, year: parseInt(e.target.value)})} className="border p-2 rounded" />
-                <input placeholder="Price" type="number" value={editCar.price} onChange={e => setEditCar({...editCar, price: parseInt(e.target.value)})} className="border p-2 rounded" />
-                <input placeholder="Mileage" type="number" value={editCar.mileage} onChange={e => setEditCar({...editCar, mileage: parseInt(e.target.value)})} className="border p-2 rounded" />
-                <input placeholder="Image URL" value={editCar.img} onChange={e => setEditCar({...editCar, img: e.target.value})} className="border p-2 rounded col-span-2" />
-                <input placeholder="City" value={editCar.city} onChange={e => setEditCar({...editCar, city: e.target.value})} className="border p-2 rounded" />
-                <select value={editCar.condition} onChange={e => setEditCar({...editCar, condition: e.target.value})} className="border p-2 rounded"><option value="New">New</option><option value="Used">Used</option></select>
-                <select value={editCar.bodyType} onChange={e => setEditCar({...editCar, bodyType: e.target.value})} className="border p-2 rounded"><option value="Sedan">Sedan</option><option value="SUV">SUV</option><option value="Hatchback">Hatchback</option><option value="Crossover">Crossover</option><option value="Pickup">Pickup</option></select>
-                <select value={editCar.transmission} onChange={e => setEditCar({...editCar, transmission: e.target.value})} className="border p-2 rounded"><option value="Automatic">Automatic</option><option value="Manual">Manual</option></select>
-                <select value={editCar.fuel} onChange={e => setEditCar({...editCar, fuel: e.target.value})} className="border p-2 rounded"><option value="Petrol">Petrol</option><option value="Diesel">Diesel</option><option value="Hybrid">Hybrid</option><option value="CNG">CNG</option></select>
-                <input placeholder="Badge (Optional)" value={editCar.badge || ''} onChange={e => setEditCar({...editCar, badge: e.target.value})} className="border p-2 rounded" />
-                <label className="flex items-center gap-2"><input type="checkbox" checked={editCar.featured || false} onChange={e => setEditCar({...editCar, featured: e.target.checked})} /> Featured</label>
+            <div className="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-sm border border-slate-200">
+              <h2 className="text-2xl font-bold mb-6 text-[#0D1B2A]">{editCar.id > 1000000000 ? "Add New Vehicle" : "Edit Vehicle Details"}</h2>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8">
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Make</label>
+                  <input value={editCar.make} onChange={e => setEditCar({...editCar, make: e.target.value})} className="w-full border border-slate-200 p-2.5 rounded-lg focus:outline-none focus:border-[#1E56A0]" />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Model</label>
+                  <input value={editCar.model} onChange={e => setEditCar({...editCar, model: e.target.value})} className="w-full border border-slate-200 p-2.5 rounded-lg focus:outline-none focus:border-[#1E56A0]" />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Variant</label>
+                  <input value={editCar.variant} onChange={e => setEditCar({...editCar, variant: e.target.value})} className="w-full border border-slate-200 p-2.5 rounded-lg focus:outline-none focus:border-[#1E56A0]" />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Year</label>
+                  <input type="number" value={editCar.year} onChange={e => setEditCar({...editCar, year: parseInt(e.target.value) || new Date().getFullYear()})} className="w-full border border-slate-200 p-2.5 rounded-lg focus:outline-none focus:border-[#1E56A0]" />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Price (PKR)</label>
+                  <input type="number" value={editCar.price} onChange={e => setEditCar({...editCar, price: parseInt(e.target.value) || 0})} className="w-full border border-slate-200 p-2.5 rounded-lg focus:outline-none focus:border-[#1E56A0]" />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Mileage (km)</label>
+                  <input type="number" value={editCar.mileage} onChange={e => setEditCar({...editCar, mileage: parseInt(e.target.value) || 0})} className="w-full border border-slate-200 p-2.5 rounded-lg focus:outline-none focus:border-[#1E56A0]" />
+                </div>
+                <div className="sm:col-span-2">
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Image URL</label>
+                  <input value={editCar.img} onChange={e => setEditCar({...editCar, img: e.target.value})} className="w-full border border-slate-200 p-2.5 rounded-lg focus:outline-none focus:border-[#1E56A0]" />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">City</label>
+                  <input value={editCar.city} onChange={e => setEditCar({...editCar, city: e.target.value})} className="w-full border border-slate-200 p-2.5 rounded-lg focus:outline-none focus:border-[#1E56A0]" />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Condition</label>
+                  <select value={editCar.condition} onChange={e => setEditCar({...editCar, condition: e.target.value})} className="w-full border border-slate-200 p-2.5 rounded-lg focus:outline-none focus:border-[#1E56A0]">
+                    <option value="New">New</option><option value="Used">Used</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Body Type</label>
+                  <select value={editCar.bodyType} onChange={e => setEditCar({...editCar, bodyType: e.target.value})} className="w-full border border-slate-200 p-2.5 rounded-lg focus:outline-none focus:border-[#1E56A0]">
+                    <option value="Sedan">Sedan</option><option value="SUV">SUV</option><option value="Hatchback">Hatchback</option><option value="Crossover">Crossover</option><option value="Pickup">Pickup</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Transmission</label>
+                  <select value={editCar.transmission} onChange={e => setEditCar({...editCar, transmission: e.target.value})} className="w-full border border-slate-200 p-2.5 rounded-lg focus:outline-none focus:border-[#1E56A0]">
+                    <option value="Automatic">Automatic</option><option value="Manual">Manual</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Fuel Type</label>
+                  <select value={editCar.fuel} onChange={e => setEditCar({...editCar, fuel: e.target.value})} className="w-full border border-slate-200 p-2.5 rounded-lg focus:outline-none focus:border-[#1E56A0]">
+                    <option value="Petrol">Petrol</option><option value="Diesel">Diesel</option><option value="Hybrid">Hybrid</option><option value="Electric">Electric</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Custom Badge</label>
+                  <input placeholder="e.g. Best Seller" value={editCar.badge || ''} onChange={e => setEditCar({...editCar, badge: e.target.value})} className="w-full border border-slate-200 p-2.5 rounded-lg focus:outline-none focus:border-[#1E56A0]" />
+                </div>
               </div>
-              <div className="flex gap-2">
+              
+              <div className="flex items-center gap-3 mb-8 p-4 bg-slate-50 rounded-lg border border-slate-200">
+                <input type="checkbox" id="featured" checked={editCar.featured || false} onChange={e => setEditCar({...editCar, featured: e.target.checked})} className="w-5 h-5 accent-[#1E56A0] rounded" />
+                <label htmlFor="featured" className="font-bold text-[#0D1B2A] cursor-pointer">Mark as Featured Vehicle (Shows on Home Page)</label>
+              </div>
+
+              <div className="flex gap-3 justify-end pt-6 border-t border-slate-200">
+                <button onClick={() => setView("list")} className="px-6 py-3 rounded-lg font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 transition-colors">Cancel</button>
                 <button onClick={() => {
                   const idx = VEHICLES.findIndex(x => x.id === editCar.id);
                   if (idx >= 0) VEHICLES[idx] = editCar;
                   else VEHICLES.unshift(editCar);
                   forceUpdate((p: number) => p + 1);
                   setView("list");
-                }} className="bg-green-600 text-white px-4 py-2 rounded font-bold">Save</button>
-                <button onClick={() => setView("list")} className="bg-slate-300 px-4 py-2 rounded font-bold">Cancel</button>
+                }} className="px-8 py-3 rounded-lg font-bold text-white bg-[#1E56A0] hover:bg-[#0F2B4C] transition-colors shadow-lg shadow-blue-900/20">Save Vehicle</button>
               </div>
             </div>
           )}
@@ -1882,7 +1904,6 @@ export default function App() {
       {page === "details" && !selectedCar && <InventoryPage setPage={navigate} setSelectedCar={setSelectedCar} />}
       {page === "rental" && <RentalPage setPage={navigate} />}
       {page === "sell" && <SellCarPage setPage={navigate} />}
-      {page === "finance" && <FinancePage setPage={navigate} />}
       {page === "about" && <AboutPage setPage={navigate} />}
       
       {page === "contact" && <ContactPage setPage={navigate} />}
