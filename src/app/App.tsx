@@ -60,19 +60,11 @@ const TESTIMONIALS = [
   { id: 1, name: "Ahsan Iqbal", city: "Lahore", rating: 5, text: "Exceptional experience from start to finish. The team at XYZ Motors made buying my Toyota Fortuner incredibly smooth. Transparent pricing with no hidden charges.", avatar: "AI", car: "Toyota Fortuner 2024" },
   { id: 2, name: "Sana Mahmood", city: "Karachi", rating: 5, text: "I was impressed by the professionalism and product knowledge of the staff. Got my Honda Civic financed through Meezan Bank at a great rate. Highly recommend!", avatar: "SM", car: "Honda Civic 2024" },
   { id: 3, name: "Farhan Khalid", city: "Islamabad", rating: 5, text: "XYZ Motors handled my car exchange seamlessly. Got a fair price for my old vehicle and a great deal on the new KIA Sportage. The entire process took just 2 days!", avatar: "FK", car: "KIA Sportage 2024" },
-  { id: 4, name: "Rabia Noor", city: "Rawalpindi", rating: 4, text: "The rental service is excellent for those short business trips to Lahore. Clean, well-maintained vehicles delivered right to my office. Will definitely use again.", avatar: "RN", car: "Toyota Corolla Rental" },
+  { id: 4, name: "Rabia Noor", city: "Rawalpindi", rating: 4, text: "The rental service is excellent for those short business trips to Lahore. Clean, well maintained vehicles delivered right to my office. Will definitely use again.", avatar: "RN", car: "Toyota Corolla Rental" },
   { id: 5, name: "Usman Tariq", city: "Faisalabad", rating: 5, text: "Bought a used Toyota Prado and it was thoroughly inspected and certified before delivery. Zero issues after 6 months. The post sale service is also outstanding.", avatar: "UT", car: "Toyota Prado 2023" },
   { id: 6, name: "Nadia Riaz", city: "Multan", rating: 5, text: "The finance calculator on their website helped me plan my budget perfectly. Got approved for a loan within 48 hours through HBL. Smooth process all the way.", avatar: "NR", car: "Hyundai Tucson 2024" },
 ];
 
-const BLOG_POSTS = [
-  { id: 1, title: "Best Family Cars in Pakistan Under Rs. 5 Million in 2025", category: "Buying Guide", date: "July 18, 2025", readTime: "6 min", img: "https://images.unsplash.com/photo-1623869675781-80aa31012a5a?w=600&h=380&fit=crop", excerpt: "Looking for the perfect family vehicle within budget? We compare the top sedans and crossovers available in Pakistan right now." },
-  { id: 2, title: "Car Financing in Pakistan: HBL vs. Meezan Bank vs. Bank Alfalah", category: "Finance", date: "July 12, 2025", readTime: "8 min", img: "https://images.unsplash.com/photo-1599912027667-755b68b4dd3b?w=600&h=380&fit=crop", excerpt: "A detailed comparison of car loan packages offered by major Pakistani banks — rates, terms, and what to expect in 2025." },
-  { id: 3, title: "Toyota Fortuner vs. KIA Sportage: Which SUV Should You Buy?", category: "Comparison", date: "July 5, 2025", readTime: "10 min", img: "https://images.unsplash.com/photo-1771904488909-9137431615c5?w=600&h=380&fit=crop", excerpt: "Both are among Pakistan's most popular SUVs. We pit them head to head on performance, features, comfort, and value." },
-  { id: 4, title: "How to Inspect a Used Car Before Buying in Pakistan", category: "Tips", date: "June 28, 2025", readTime: "7 min", img: "https://images.unsplash.com/photo-1629820408206-e9fc918abf63?w=600&h=380&fit=crop", excerpt: "A comprehensive checklist for buying a pre owned vehicle — from body inspection to engine health and document verification." },
-  { id: 5, title: "MG HS vs. Haval H6: Chinese SUV Showdown in Pakistan", category: "Comparison", date: "June 20, 2025", readTime: "9 min", img: "https://images.unsplash.com/photo-1777175013217-36fa50584299?w=600&h=380&fit=crop", excerpt: "Two popular Chinese crossovers are battling for Pakistan's growing SUV market. Which one offers better value?" },
-  { id: 6, title: "Car Rental in Pakistan: When to Rent vs. Buy", category: "Lifestyle", date: "June 15, 2025", readTime: "5 min", img: "https://images.unsplash.com/photo-1585390062628-be8608aa7d83?w=600&h=380&fit=crop", excerpt: "Not sure whether to rent or own? We break down the economics and scenarios to help you make the smarter financial decision." },
-];
 
 const BANKS = [
   { name: "HBL", fullName: "Habib Bank Limited", rate: "22%", color: "#006633" },
@@ -186,7 +178,7 @@ function Navbar({ page, setPage }: { page: Page; setPage: (p: Page) => void }) {
     { label: "Finance", page: "finance" },
     { label: "Sell Your Car", page: "sell" },
     { label: "About Us", page: "about" },
-    { label: "Blog", page: "blog" },
+    
   ];
 
   const go = (p: Page) => { setPage(p); setMenuOpen(false); window.scrollTo({ top: 0, behavior: "smooth" }); };
@@ -1516,81 +1508,6 @@ function AboutPage({ setPage }: { setPage: (p: Page) => void }) {
   );
 }
 
-// ─── BLOG PAGE ────────────────────────────────────────────────────────────────
-function BlogPage({ setPage }: { setPage: (p: Page) => void }) {
-  const [activeCategory, setActiveCategory] = useState("All");
-  const categories = ["All", "Buying Guide", "Finance", "Comparison", "Tips", "Lifestyle"];
-  const filtered = activeCategory === "All" ? BLOG_POSTS : BLOG_POSTS.filter(p => p.category === activeCategory);
-
-  return (
-    <div className="pt-16 min-h-screen bg-[#F8FAFC]">
-      {/* Header */}
-      <section style={{ background: "linear-gradient(135deg, #0F2B4C 0%, #1E56A0 100%)" }} className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="text-xs font-bold tracking-[0.2em] uppercase text-blue-300">Knowledge Hub</span>
-          <h1 className="mt-3 text-4xl md:text-5xl font-extrabold text-white">Automotive News & Buying Guides</h1>
-          <p className="mt-4 text-blue-200 max-w-xl mx-auto">Expert insights, car comparisons, financing tips, and market news for Pakistani car buyers.</p>
-        </div>
-      </section>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Category Filter */}
-        <div className="flex flex-wrap gap-2 mb-10">
-          {categories.map(cat => (
-            <button key={cat} onClick={() => setActiveCategory(cat)} className={`px-4 py-2 text-sm font-semibold rounded transition-colors ${activeCategory === cat ? "bg-[#0F2B4C] text-white" : "bg-white text-slate-600 border border-slate-200 hover:border-[#1E56A0] hover:text-[#1E56A0]"}`}>
-              {cat}
-            </button>
-          ))}
-        </div>
-
-        {/* Featured Post */}
-        {activeCategory === "All" && (
-          <div className="bg-white rounded-lg overflow-hidden border border-slate-100 shadow-sm mb-8 group cursor-pointer hover:shadow-md transition-shadow">
-            <div className="grid grid-cols-1 md:grid-cols-2">
-              <div className="overflow-hidden" style={{ minHeight: 280 }}>
-                <img src={BLOG_POSTS[0].img} alt={BLOG_POSTS[0].title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" style={{ minHeight: 280 }} />
-              </div>
-              <div className="p-8 flex flex-col justify-center">
-                <span className="text-[10px] font-bold bg-blue-50 text-[#1E56A0] px-2 py-0.5 rounded uppercase tracking-wider inline-block w-fit mb-4">{BLOG_POSTS[0].category}</span>
-                <h2 className="text-xl md:text-2xl font-bold text-[#0D1B2A] mb-3 leading-tight">{BLOG_POSTS[0].title}</h2>
-                <p className="text-sm text-slate-500 leading-relaxed mb-5">{BLOG_POSTS[0].excerpt}</p>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-slate-400 flex items-center gap-2"><Calendar className="w-3.5 h-3.5" />{BLOG_POSTS[0].date}</span>
-                  <span className="text-xs font-bold text-[#1E56A0] flex items-center gap-1">Read Article <ArrowRight className="w-3.5 h-3.5" /></span>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Articles Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {(activeCategory === "All" ? filtered.slice(1) : filtered).map(post => (
-            <article key={post.id} className="bg-white rounded-lg overflow-hidden border border-slate-100 shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
-              <div className="overflow-hidden" style={{ height: 200 }}>
-                <img src={post.img} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              </div>
-              <div className="p-5">
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="text-[10px] font-bold bg-blue-50 text-[#1E56A0] px-2 py-0.5 rounded uppercase tracking-wider">{post.category}</span>
-                  <span className="text-[11px] text-slate-400 flex items-center gap-1"><Clock className="w-3 h-3" />{post.readTime}</span>
-                </div>
-                <h3 className="text-sm font-bold text-[#0D1B2A] leading-snug mb-2 group-hover:text-[#1E56A0] transition-colors">{post.title}</h3>
-                <p className="text-xs text-slate-500 leading-relaxed">{post.excerpt}</p>
-                <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-100">
-                  <span className="text-[11px] text-slate-400">{post.date}</span>
-                  <span className="text-[11px] font-semibold text-[#1E56A0] flex items-center gap-1">Read More <ArrowRight className="w-3 h-3" /></span>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ─── CONTACT PAGE ─────────────────────────────────────────────────────────────
 function ContactPage({ setPage }: { setPage: (p: Page) => void }) {
   const [form, setForm] = useState({ name: "", phone: "", email: "", subject: "", message: "" });
   const setField = (k: string, v: string) => setForm(p => ({ ...p, [k]: v }));
@@ -1967,7 +1884,7 @@ export default function App() {
       {page === "sell" && <SellCarPage setPage={navigate} />}
       {page === "finance" && <FinancePage setPage={navigate} />}
       {page === "about" && <AboutPage setPage={navigate} />}
-      {page === "blog" && <BlogPage setPage={navigate} />}
+      
       {page === "contact" && <ContactPage setPage={navigate} />}
 
       <Footer setPage={navigate} />
