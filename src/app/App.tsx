@@ -246,12 +246,15 @@ function Navbar({ page, setPage }: { page: Page; setPage: (p: Page) => void }) {
 }
 
 // ─── FOOTER ───────────────────────────────────────────────────────────────────
-function Footer({ setPage }: { setPage: (p: Page) => void }) {
+function Footer({ setPage, setAdminOpen }: { setPage: (p: Page) => void, setAdminOpen: (b: boolean) => void }) {
   const go = (p: Page) => { setPage(p); window.scrollTo({ top: 0, behavior: "smooth" }); };
   return (
     <footer className="bg-[#060E1A] text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
-        <p className="text-sm font-medium text-slate-400">© 2026 XYZ Motors. All rights reserved.</p>
+        <div className="flex items-center gap-4">
+          <p className="text-sm font-medium text-slate-400">© 2026 XYZ Motors. All rights reserved.</p>
+          <button onClick={() => setAdminOpen(true)} className="text-sm text-slate-600 hover:text-slate-400 font-medium transition-colors">Admin</button>
+        </div>
         <p className="text-sm font-medium text-slate-400">
           Designed and Developed by <a href="https://www.instagram.com/norvexmanagement/" target="_blank" rel="noreferrer" className="text-blue-400 hover:underline">Norvex Management</a>
         </p>
@@ -338,7 +341,7 @@ function HomePage({ setPage, setSelectedCar }: { setPage: (p: Page) => void; set
                   {["Lahore", "Karachi", "Islamabad", "Rawalpindi", "Faisalabad", "Multan"].map(c => <option key={c}>{c}</option>)}
                 </select>
               </div>
-              <button onClick={handleSearch} className="flex items-center justify-center gap-2 bg-[#1E56A0] hover:bg-[#0F2B4C] text-white font-bold text-sm px-6 py-3 rounded transition-colors duration-200 flex-shrink-0">
+              <button onClick={handleSearch} className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#1E56A0] hover:bg-[#0F2B4C] text-white font-bold text-sm px-6 py-3 rounded transition-colors duration-200 flex-shrink-0">
                 <Search className="w-4 h-4" />
                 <span>Search</span>
               </button>
@@ -997,8 +1000,8 @@ function RentalPage({ setPage }: { setPage: (p: Page) => void }) {
                 <option value="yes">With Driver</option>
               </select>
             </div>
-            <div className="flex flex-col justify-end">
-              <button className="bg-[#1E56A0] hover:bg-[#0F2B4C] text-white font-bold text-sm py-2.5 px-5 rounded transition-colors flex items-center justify-center gap-2">
+            <div className="flex flex-col justify-end col-span-2 md:col-span-1">
+              <button className="w-full bg-[#1E56A0] hover:bg-[#0F2B4C] text-white font-bold text-sm py-2.5 px-5 rounded transition-colors flex items-center justify-center gap-2">
                 <Search className="w-4 h-4" />Check Availability
               </button>
             </div>
@@ -1812,6 +1815,7 @@ export default function App() {
   const [adminAuth, setAdminAuth] = useState(false);
   const [password, setPassword] = useState("");
   const [, forceUpdate] = useState(0);
+  const [showWhatsApp, setShowWhatsApp] = useState(true);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -1823,99 +1827,6 @@ export default function App() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  const AdminDashboard = () => {
-    const [view, setView] = useState("list");
-    const [editCar, setEditCar] = useState(null);
-
-    if (!adminAuth) {
-      return (
-        <div className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl p-8 max-w-sm w-full">
-            <h2 className="text-xl font-bold mb-4 text-[#0D1B2A]">Admin Login</h2>
-            <input type="password" placeholder="Password" className="w-full border rounded p-2 mb-4 text-[#0D1B2A]" value={password} onChange={e => setPassword(e.target.value)} />
-            <div className="flex gap-2">
-              <button className="flex-1 bg-slate-200 text-[#0D1B2A] p-2 rounded" onClick={() => setAdminOpen(false)}>Cancel</button>
-              <button className="flex-1 bg-blue-600 text-white p-2 rounded" onClick={() => {
-                if (password === "xyzadmin") setAdminAuth(true);
-                else alert("Incorrect Password");
-              }}>Login</button>
-            </div>
-          </div>
-        </div>
-      );
-    }
-
-    return (
-      <div className="fixed inset-0 bg-white z-[100] overflow-y-auto text-[#0D1B2A]">
-        <div className="max-w-5xl mx-auto p-6">
-          <div className="flex justify-between items-center mb-8 border-b pb-4">
-            <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-            <div className="flex gap-4">
-              <button onClick={() => { setEditCar({ id: Date.now(), make:"", model:"", variant:"", year:2024, price:0, mileage:0, transmission:"Automatic", fuel:"Petrol", city:"", condition:"New", bodyType:"Sedan", img:"", featured: false, badge: "" }); setView("edit"); }} className="bg-green-600 text-white px-4 py-2 rounded font-bold">+ Add Car</button>
-              <button onClick={() => setAdminOpen(false)} className="bg-red-600 text-white px-4 py-2 rounded font-bold">Close</button>
-            </div>
-          </div>
-
-          {view === "list" && (
-            <div className="grid gap-4">
-              {VEHICLES.map(v => (
-                <div key={v.id} className="flex items-center gap-4 border p-4 rounded bg-slate-50">
-                  <img src={v.img} alt="car" className="w-24 h-16 object-cover rounded" />
-                  <div className="flex-1">
-                    <h3 className="font-bold">{v.make} {v.model} {v.year}</h3>
-                    <p className="text-sm text-slate-500">Rs. {v.price.toLocaleString()} | {v.condition} {v.badge ? `| Badge: ${v.badge}` : ""}</p>
-                  </div>
-                  <div className="flex gap-2 flex-wrap">
-                    <button onClick={() => { setEditCar({...v}); setView("edit"); }} className="bg-blue-600 text-white px-3 py-1 rounded">Edit</button>
-                    <button onClick={() => {
-                      VEHICLES = VEHICLES.filter(x => x.id !== v.id);
-                      forceUpdate(p => p + 1);
-                    }} className="bg-red-600 text-white px-3 py-1 rounded">Delete</button>
-                    <button onClick={() => {
-                      v.badge = "Sold Out";
-                      forceUpdate(p => p + 1);
-                    }} className="bg-orange-500 text-white px-3 py-1 rounded">Mark Sold</button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {view === "edit" && editCar && (
-            <div className="max-w-2xl bg-slate-50 p-6 rounded border">
-              <h2 className="font-bold mb-4">{editCar.id > 1000 ? "Add New Car" : "Edit Car"}</h2>
-              <div className="grid grid-cols-2 gap-4 mb-4">
-                <input placeholder="Make" value={editCar.make} onChange={e => setEditCar({...editCar, make: e.target.value})} className="border p-2 rounded" />
-                <input placeholder="Model" value={editCar.model} onChange={e => setEditCar({...editCar, model: e.target.value})} className="border p-2 rounded" />
-                <input placeholder="Variant" value={editCar.variant} onChange={e => setEditCar({...editCar, variant: e.target.value})} className="border p-2 rounded" />
-                <input placeholder="Year" type="number" value={editCar.year} onChange={e => setEditCar({...editCar, year: parseInt(e.target.value)})} className="border p-2 rounded" />
-                <input placeholder="Price" type="number" value={editCar.price} onChange={e => setEditCar({...editCar, price: parseInt(e.target.value)})} className="border p-2 rounded" />
-                <input placeholder="Mileage" type="number" value={editCar.mileage} onChange={e => setEditCar({...editCar, mileage: parseInt(e.target.value)})} className="border p-2 rounded" />
-                <input placeholder="Image URL" value={editCar.img} onChange={e => setEditCar({...editCar, img: e.target.value})} className="border p-2 rounded col-span-2" />
-                <input placeholder="City" value={editCar.city} onChange={e => setEditCar({...editCar, city: e.target.value})} className="border p-2 rounded" />
-                <select value={editCar.condition} onChange={e => setEditCar({...editCar, condition: e.target.value})} className="border p-2 rounded"><option value="New">New</option><option value="Used">Used</option></select>
-                <select value={editCar.bodyType} onChange={e => setEditCar({...editCar, bodyType: e.target.value})} className="border p-2 rounded"><option value="Sedan">Sedan</option><option value="SUV">SUV</option><option value="Hatchback">Hatchback</option><option value="Crossover">Crossover</option><option value="Pickup">Pickup</option></select>
-                <select value={editCar.transmission} onChange={e => setEditCar({...editCar, transmission: e.target.value})} className="border p-2 rounded"><option value="Automatic">Automatic</option><option value="Manual">Manual</option></select>
-                <select value={editCar.fuel} onChange={e => setEditCar({...editCar, fuel: e.target.value})} className="border p-2 rounded"><option value="Petrol">Petrol</option><option value="Diesel">Diesel</option><option value="Hybrid">Hybrid</option><option value="CNG">CNG</option></select>
-                <input placeholder="Badge (Optional)" value={editCar.badge || ''} onChange={e => setEditCar({...editCar, badge: e.target.value})} className="border p-2 rounded" />
-                <label className="flex items-center gap-2"><input type="checkbox" checked={editCar.featured || false} onChange={e => setEditCar({...editCar, featured: e.target.checked})} /> Featured</label>
-              </div>
-              <div className="flex gap-2">
-                <button onClick={() => {
-                  const idx = VEHICLES.findIndex(x => x.id === editCar.id);
-                  if (idx >= 0) VEHICLES[idx] = editCar;
-                  else VEHICLES.unshift(editCar);
-                  forceUpdate(p => p + 1);
-                  setView("list");
-                }} className="bg-green-600 text-white px-4 py-2 rounded font-bold">Save</button>
-                <button onClick={() => setView("list")} className="bg-slate-300 px-4 py-2 rounded font-bold">Cancel</button>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    );
-  };
 
 
   const [page, setPage] = useState<Page>("home");
@@ -1940,19 +1851,30 @@ export default function App() {
       
       {page === "contact" && <ContactPage setPage={navigate} />}
 
-      <Footer setPage={navigate} />
+      <Footer setPage={navigate} setAdminOpen={setAdminOpen} />
 
       {adminOpen && <AdminDashboard adminAuth={adminAuth} setAdminAuth={setAdminAuth} setAdminOpen={setAdminOpen} forceUpdate={forceUpdate} />}
       {/* WhatsApp FAB */}
-      <a
-        href="https://wa.me/923405463601?text=Assalam-o-Alaikum, mujhe XYZ Motors se rabta karna hai."
-        target="_blank"
-        rel="noreferrer"
-        className="fixed bottom-6 right-6 w-14 h-14 bg-[#25D366] hover:bg-green-400 rounded-full flex items-center justify-center shadow-xl z-50 transition-all duration-200 hover:scale-110"
-        title="WhatsApp XYZ Motors"
-      >
-        <MessageCircle className="w-6 h-6 text-white" />
-      </a>
+      {showWhatsApp && (
+        <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
+          <button 
+            onClick={() => setShowWhatsApp(false)} 
+            className="bg-white text-slate-400 hover:text-slate-600 rounded-full w-5 h-5 flex items-center justify-center shadow border border-slate-100 hover:bg-slate-50 transition-colors mr-1"
+            title="Close WhatsApp"
+          >
+            <X className="w-3 h-3" strokeWidth={2.5} />
+          </button>
+          <a
+            href="https://wa.me/923405463601?text=Assalam-o-Alaikum, mujhe XYZ Motors se rabta karna hai."
+            target="_blank"
+            rel="noreferrer"
+            className="w-14 h-14 bg-[#25D366] hover:bg-green-400 rounded-full flex items-center justify-center shadow-xl transition-all duration-200 hover:scale-110"
+            title="WhatsApp XYZ Motors"
+          >
+            <MessageCircle className="w-6 h-6 text-white" />
+          </a>
+        </div>
+      )}
     </div>
   );
 }
