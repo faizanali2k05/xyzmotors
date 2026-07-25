@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import {
   Search, MapPin, Phone, Mail, ChevronDown, ChevronRight, Star,
   CheckCircle, Users, Award, Shield, Fuel, Settings2, Calendar,
