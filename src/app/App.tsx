@@ -61,15 +61,15 @@ const TESTIMONIALS = [
   { id: 2, name: "Sana Mahmood", city: "Karachi", rating: 5, text: "I was impressed by the professionalism and product knowledge of the staff. Got my Honda Civic financed through Meezan Bank at a great rate. Highly recommend!", avatar: "SM", car: "Honda Civic 2024" },
   { id: 3, name: "Farhan Khalid", city: "Islamabad", rating: 5, text: "XYZ Motors handled my car exchange seamlessly. Got a fair price for my old vehicle and a great deal on the new KIA Sportage. The entire process took just 2 days!", avatar: "FK", car: "KIA Sportage 2024" },
   { id: 4, name: "Rabia Noor", city: "Rawalpindi", rating: 4, text: "The rental service is excellent for those short business trips to Lahore. Clean, well-maintained vehicles delivered right to my office. Will definitely use again.", avatar: "RN", car: "Toyota Corolla Rental" },
-  { id: 5, name: "Usman Tariq", city: "Faisalabad", rating: 5, text: "Bought a used Toyota Prado and it was thoroughly inspected and certified before delivery. Zero issues after 6 months. The post-sale service is also outstanding.", avatar: "UT", car: "Toyota Prado 2023" },
+  { id: 5, name: "Usman Tariq", city: "Faisalabad", rating: 5, text: "Bought a used Toyota Prado and it was thoroughly inspected and certified before delivery. Zero issues after 6 months. The post sale service is also outstanding.", avatar: "UT", car: "Toyota Prado 2023" },
   { id: 6, name: "Nadia Riaz", city: "Multan", rating: 5, text: "The finance calculator on their website helped me plan my budget perfectly. Got approved for a loan within 48 hours through HBL. Smooth process all the way.", avatar: "NR", car: "Hyundai Tucson 2024" },
 ];
 
 const BLOG_POSTS = [
   { id: 1, title: "Best Family Cars in Pakistan Under Rs. 5 Million in 2025", category: "Buying Guide", date: "July 18, 2025", readTime: "6 min", img: "https://images.unsplash.com/photo-1623869675781-80aa31012a5a?w=600&h=380&fit=crop", excerpt: "Looking for the perfect family vehicle within budget? We compare the top sedans and crossovers available in Pakistan right now." },
   { id: 2, title: "Car Financing in Pakistan: HBL vs. Meezan Bank vs. Bank Alfalah", category: "Finance", date: "July 12, 2025", readTime: "8 min", img: "https://images.unsplash.com/photo-1599912027667-755b68b4dd3b?w=600&h=380&fit=crop", excerpt: "A detailed comparison of car loan packages offered by major Pakistani banks — rates, terms, and what to expect in 2025." },
-  { id: 3, title: "Toyota Fortuner vs. KIA Sportage: Which SUV Should You Buy?", category: "Comparison", date: "July 5, 2025", readTime: "10 min", img: "https://images.unsplash.com/photo-1771904488909-9137431615c5?w=600&h=380&fit=crop", excerpt: "Both are among Pakistan's most popular SUVs. We pit them head-to-head on performance, features, comfort, and value." },
-  { id: 4, title: "How to Inspect a Used Car Before Buying in Pakistan", category: "Tips", date: "June 28, 2025", readTime: "7 min", img: "https://images.unsplash.com/photo-1629820408206-e9fc918abf63?w=600&h=380&fit=crop", excerpt: "A comprehensive checklist for buying a pre-owned vehicle — from body inspection to engine health and document verification." },
+  { id: 3, title: "Toyota Fortuner vs. KIA Sportage: Which SUV Should You Buy?", category: "Comparison", date: "July 5, 2025", readTime: "10 min", img: "https://images.unsplash.com/photo-1771904488909-9137431615c5?w=600&h=380&fit=crop", excerpt: "Both are among Pakistan's most popular SUVs. We pit them head to head on performance, features, comfort, and value." },
+  { id: 4, title: "How to Inspect a Used Car Before Buying in Pakistan", category: "Tips", date: "June 28, 2025", readTime: "7 min", img: "https://images.unsplash.com/photo-1629820408206-e9fc918abf63?w=600&h=380&fit=crop", excerpt: "A comprehensive checklist for buying a pre owned vehicle — from body inspection to engine health and document verification." },
   { id: 5, title: "MG HS vs. Haval H6: Chinese SUV Showdown in Pakistan", category: "Comparison", date: "June 20, 2025", readTime: "9 min", img: "https://images.unsplash.com/photo-1777175013217-36fa50584299?w=600&h=380&fit=crop", excerpt: "Two popular Chinese crossovers are battling for Pakistan's growing SUV market. Which one offers better value?" },
   { id: 6, title: "Car Rental in Pakistan: When to Rent vs. Buy", category: "Lifestyle", date: "June 15, 2025", readTime: "5 min", img: "https://images.unsplash.com/photo-1585390062628-be8608aa7d83?w=600&h=380&fit=crop", excerpt: "Not sure whether to rent or own? We break down the economics and scenarios to help you make the smarter financial decision." },
 ];
@@ -117,12 +117,12 @@ function calcEMI(principal: number, annualRate: number, months: number): number 
 }
 
 // ─── SUB-COMPONENTS ───────────────────────────────────────────────────────────
-function SectionHeader({ eyebrow, title, subtitle, light = false }: { eyebrow: string; title: string; subtitle?: string; light?: boolean }) {
+function SectionHeader({ eyebrow, title, subtitle, light = false, center = false }: { eyebrow: string; title: string; subtitle?: string; light?: boolean; center?: boolean }) {
   return (
     <div className="mb-12">
       <span className={`text-xs font-semibold tracking-[0.2em] uppercase ${light ? "text-blue-300" : "text-accent"}`}>{eyebrow}</span>
       <h2 className={`mt-2 text-3xl md:text-4xl font-bold ${light ? "text-white" : "text-[#0D1B2A]"} leading-tight`}>{title}</h2>
-      {subtitle && <p className={`mt-3 text-base ${light ? "text-slate-300" : "text-slate-500"} max-w-2xl`}>{subtitle}</p>}
+      {subtitle && <p className={`mt-3 text-base ${light ? "text-slate-300" : "text-slate-500"} max-w-2xl ${center ? "mx-auto" : ""}`}>{subtitle}</p>}
     </div>
   );
 }
@@ -315,7 +315,7 @@ function HomePage({ setPage, setSelectedCar }: { setPage: (p: Page) => void; set
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 mb-6">
               
-              <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-blue-400">Pakistan's Premium Dealership</span>
+              
             </div>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.05] tracking-tight">
               Drive Your<br />
@@ -324,7 +324,7 @@ function HomePage({ setPage, setSelectedCar }: { setPage: (p: Page) => void; set
               Today.
             </h1>
             <p className="mt-6 text-base md:text-lg text-slate-300 leading-relaxed max-w-lg">
-              XYZ Motors offers Pakistan's finest selection of new, used, and certified pre-owned vehicles — with transparent pricing, bank financing, and doorstep delivery.
+              XYZ Motors offers Pakistan's finest selection of new, used, and certified pre owned vehicles — with transparent pricing, bank financing, and doorstep delivery.
             </p>
 
             {/* Search bar */}
@@ -443,7 +443,7 @@ function HomePage({ setPage, setSelectedCar }: { setPage: (p: Page) => void; set
             <div>
               <span className="text-xs font-bold tracking-[0.2em] uppercase text-blue-300">Car Rental Service</span>
               <h2 className="mt-2 text-3xl md:text-4xl font-bold text-white">Rent a Vehicle for Any Occasion</h2>
-              <p className="mt-3 text-blue-200 max-w-lg">From daily commutes to month-long business trips — clean, insured, and delivered to your door.</p>
+              <p className="mt-3 text-blue-200 max-w-lg">From daily commutes to month long business trips — clean, insured, and delivered to your door.</p>
               <div className="mt-6 flex flex-wrap gap-4">
                 {["Daily from Rs. 6,500", "Driver Available", "All Major Cities", "Full Insurance"].map(f => (
                   <span key={f} className="flex items-center gap-2 text-sm text-white"><CheckCircle className="w-4 h-4 text-blue-300" />{f}</span>
@@ -532,14 +532,14 @@ function HomePage({ setPage, setSelectedCar }: { setPage: (p: Page) => void; set
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <SectionHeader eyebrow="Buying Process" title="Simple Steps to Your New Car" subtitle="We have streamlined the buying process so you can drive home your dream car in as little as 24 hours." />
+            <SectionHeader eyebrow="Buying Process" title="Simple Steps to Your New Car" subtitle="We have streamlined the buying process so you can drive home your dream car in as little as 24 hours." center={true} />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
             <div className="hidden lg:block absolute top-10 left-[12.5%] right-[12.5%] h-px bg-slate-200 z-0" />
             {[
               { step: "01", icon: Search, title: "Browse Inventory", desc: "Search our verified listings by brand, model, price, city, and more." },
               { step: "02", icon: Eye, title: "Book Inspection", desc: "Schedule a free vehicle inspection or a test drive at your convenience." },
-              { step: "03", icon: Calculator, title: "Apply for Finance", desc: "Get pre-approved for a bank loan within 48 hours through our partner banks." },
+              { step: "03", icon: Calculator, title: "Apply for Finance", desc: "Get pre approved for a bank loan within 48 hours through our partner banks." },
               { step: "04", icon: Car, title: "Drive Home", desc: "Complete the paperwork, make your payment, and drive off in your new car." },
             ].map(({ step, icon: Icon, title, desc }) => (
               <div key={step} className="relative text-center z-10">
@@ -901,7 +901,7 @@ function CarDetailsPage({ car, setPage }: { car: Vehicle; setPage: (p: Page) => 
 
               <div className="mt-5 pt-5 border-t border-slate-100 space-y-3">
                 <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">XYZ Motors Guarantees</p>
-                {["Verified documents & clear title", "150-point inspection report", "No hidden charges or fees", "Post-sale 30-day support"].map(g => (
+                {["Verified documents & clear title", "150 point inspection report", "No hidden charges or fees", "Post-sale 30-day support"].map(g => (
                   <div key={g} className="flex items-start gap-2 text-xs text-slate-600"><CircleCheck className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />{g}</div>
                 ))}
               </div>
@@ -1463,7 +1463,7 @@ function AboutPage({ setPage }: { setPage: (p: Page) => void }) {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <SectionHeader eyebrow="Our Values" title="Customer First Philosophy" subtitle="Everything we do is guided by these core principles." />
+            <SectionHeader eyebrow="Our Values" title="Customer First Philosophy" subtitle="Everything we do is guided by these core principles." center={true} />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[{ icon: Shield, label: "Trust", desc: "We operate with complete transparency no hidden fees no misleading claims." }, { icon: Award, label: "Excellence", desc: "Certified processes ensure every interaction exceeds your expectations." }, { icon: ThumbsUp, label: "Integrity", desc: "Honest valuations and fair pricing always. Our reputation is our greatest asset." }, { icon: Headphones, label: "Care", desc: "Our relationship with customers doesn't end at sale it begins there." }].map(({ icon: Icon, label, desc }) => (
@@ -1738,6 +1738,104 @@ function ContactPage({ setPage }: { setPage: (p: Page) => void }) {
 }
 
 // ─── MAIN APP ─────────────────────────────────────────────────────────────────
+const AdminDashboard = ({ adminAuth, setAdminAuth, setAdminOpen, forceUpdate }: any) => {
+    const [view, setView] = useState("list");
+    const [editCar, setEditCar] = useState<any>(null);
+    
+    if (!adminAuth) {
+      return (
+        <div className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl p-8 max-w-sm w-full">
+            <h2 className="text-xl font-bold mb-4 text-[#0D1B2A]">Admin Login</h2>
+            <input type="password" placeholder="Password" className="w-full border rounded p-2 mb-4 text-[#0D1B2A]" value={password} onChange={e => setPassword(e.target.value)} />
+            <div className="flex gap-2">
+              <button className="flex-1 bg-slate-200 text-[#0D1B2A] p-2 rounded" onClick={() => setAdminOpen(false)}>Cancel</button>
+              <button className="flex-1 bg-blue-600 text-white p-2 rounded" onClick={() => {
+                if (password === "xyzadmin") setAdminAuth(true);
+                else alert("Incorrect Password");
+              }}>Login</button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="fixed inset-0 bg-white z-[100] overflow-y-auto text-[#0D1B2A]">
+        <div className="max-w-5xl mx-auto p-6">
+          <div className="flex justify-between items-center mb-8 border-b pb-4">
+            <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+            <div className="flex gap-4">
+              <button onClick={() => { setEditCar({ id: Date.now(), make:"", model:"", variant:"", year:2024, price:0, mileage:0, transmission:"Automatic", fuel:"Petrol", city:"", condition:"New", bodyType:"Sedan", img:"", featured: false, badge: "" }); setView("edit"); }} className="bg-green-600 text-white px-4 py-2 rounded font-bold">+ Add Car</button>
+              <button onClick={() => setAdminOpen(false)} className="bg-red-600 text-white px-4 py-2 rounded font-bold">Close</button>
+            </div>
+          </div>
+
+          {view === "list" && (
+            <div className="grid gap-4">
+              {VEHICLES.map(v => (
+                <div key={v.id} className="flex items-center gap-4 border p-4 rounded bg-slate-50">
+                  <img src={v.img} alt="car" className="w-24 h-16 object-cover rounded" />
+                  <div className="flex-1">
+                    <h3 className="font-bold">{v.make} {v.model} {v.year}</h3>
+                    <p className="text-sm text-slate-500">Rs. {v.price.toLocaleString()} | {v.condition} {v.badge ? `| Badge: ${v.badge}` : ""}</p>
+                  </div>
+                  <div className="flex gap-2 flex-wrap">
+                    <button onClick={() => { setEditCar({...v}); setView("edit"); }} className="bg-blue-600 text-white px-3 py-1 rounded">Edit</button>
+                    <button onClick={() => {
+                      VEHICLES = VEHICLES.filter(x => x.id !== v.id);
+                      forceUpdate((p: number) => p + 1);
+                    }} className="bg-red-600 text-white px-3 py-1 rounded">Delete</button>
+                    <button onClick={() => {
+                      v.badge = "Sold Out";
+                      forceUpdate((p: number) => p + 1);
+                    }} className="bg-orange-500 text-white px-3 py-1 rounded">Mark Sold</button>
+                    <button onClick={() => {
+                      v.badge = "Hot Sale";
+                      forceUpdate((p: number) => p + 1);
+                    }} className="bg-purple-600 text-white px-3 py-1 rounded">Hot Sale</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {view === "edit" && editCar && (
+            <div className="max-w-2xl bg-slate-50 p-6 rounded border">
+              <h2 className="font-bold mb-4">{editCar.id > 1000 ? "Add New Car" : "Edit Car"}</h2>
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                <input placeholder="Make" value={editCar.make} onChange={e => setEditCar({...editCar, make: e.target.value})} className="border p-2 rounded" />
+                <input placeholder="Model" value={editCar.model} onChange={e => setEditCar({...editCar, model: e.target.value})} className="border p-2 rounded" />
+                <input placeholder="Variant" value={editCar.variant} onChange={e => setEditCar({...editCar, variant: e.target.value})} className="border p-2 rounded" />
+                <input placeholder="Year" type="number" value={editCar.year} onChange={e => setEditCar({...editCar, year: parseInt(e.target.value)})} className="border p-2 rounded" />
+                <input placeholder="Price" type="number" value={editCar.price} onChange={e => setEditCar({...editCar, price: parseInt(e.target.value)})} className="border p-2 rounded" />
+                <input placeholder="Mileage" type="number" value={editCar.mileage} onChange={e => setEditCar({...editCar, mileage: parseInt(e.target.value)})} className="border p-2 rounded" />
+                <input placeholder="Image URL" value={editCar.img} onChange={e => setEditCar({...editCar, img: e.target.value})} className="border p-2 rounded col-span-2" />
+                <input placeholder="City" value={editCar.city} onChange={e => setEditCar({...editCar, city: e.target.value})} className="border p-2 rounded" />
+                <select value={editCar.condition} onChange={e => setEditCar({...editCar, condition: e.target.value})} className="border p-2 rounded"><option value="New">New</option><option value="Used">Used</option></select>
+                <select value={editCar.bodyType} onChange={e => setEditCar({...editCar, bodyType: e.target.value})} className="border p-2 rounded"><option value="Sedan">Sedan</option><option value="SUV">SUV</option><option value="Hatchback">Hatchback</option><option value="Crossover">Crossover</option><option value="Pickup">Pickup</option></select>
+                <select value={editCar.transmission} onChange={e => setEditCar({...editCar, transmission: e.target.value})} className="border p-2 rounded"><option value="Automatic">Automatic</option><option value="Manual">Manual</option></select>
+                <select value={editCar.fuel} onChange={e => setEditCar({...editCar, fuel: e.target.value})} className="border p-2 rounded"><option value="Petrol">Petrol</option><option value="Diesel">Diesel</option><option value="Hybrid">Hybrid</option><option value="CNG">CNG</option></select>
+                <input placeholder="Badge (Optional)" value={editCar.badge || ''} onChange={e => setEditCar({...editCar, badge: e.target.value})} className="border p-2 rounded" />
+                <label className="flex items-center gap-2"><input type="checkbox" checked={editCar.featured || false} onChange={e => setEditCar({...editCar, featured: e.target.checked})} /> Featured</label>
+              </div>
+              <div className="flex gap-2">
+                <button onClick={() => {
+                  const idx = VEHICLES.findIndex(x => x.id === editCar.id);
+                  if (idx >= 0) VEHICLES[idx] = editCar;
+                  else VEHICLES.unshift(editCar);
+                  forceUpdate((p: number) => p + 1);
+                  setView("list");
+                }} className="bg-green-600 text-white px-4 py-2 rounded font-bold">Save</button>
+                <button onClick={() => setView("list")} className="bg-slate-300 px-4 py-2 rounded font-bold">Cancel</button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
+
 export default function App() {
   const [adminOpen, setAdminOpen] = useState(false);
   const [adminAuth, setAdminAuth] = useState(false);
@@ -1745,7 +1843,7 @@ export default function App() {
   const [, forceUpdate] = useState(0);
 
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (e.shiftKey && e.key.toLowerCase() === "a") {
         setAdminOpen(true);
       }
@@ -1874,7 +1972,7 @@ export default function App() {
 
       <Footer setPage={navigate} />
 
-      {adminOpen && <AdminDashboard />}
+      {adminOpen && <AdminDashboard adminAuth={adminAuth} setAdminAuth={setAdminAuth} setAdminOpen={setAdminOpen} forceUpdate={forceUpdate} />}
       {/* WhatsApp FAB */}
       <a
         href="https://wa.me/923001234567"
