@@ -35,7 +35,7 @@ interface Vehicle {
 }
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
-const VEHICLES: Vehicle[] = [
+let VEHICLES: Vehicle[] = [
   { id: 1, make: "Toyota", model: "Corolla", variant: "Grande X CVT-i", year: 2024, price: 4599000, mileage: 0, transmission: "Automatic", fuel: "Petrol", city: "Lahore", condition: "New", bodyType: "Sedan", img: "https://images.unsplash.com/photo-1623869675781-80aa31012a5a?w=600&h=380&fit=crop&auto=format", featured: true, badge: "Best Seller", color: "White" },
   { id: 2, make: "Honda", model: "Civic", variant: "RS Turbo", year: 2024, price: 5599000, mileage: 0, transmission: "Automatic", fuel: "Petrol", city: "Karachi", condition: "New", bodyType: "Sedan", img: "https://images.unsplash.com/photo-1619431856706-ca2cc58258f6?w=600&h=380&fit=crop&auto=format", featured: true, badge: "New Arrival", color: "White" },
   { id: 3, make: "KIA", model: "Sportage", variant: "AWD Alpha", year: 2024, price: 6999000, mileage: 0, transmission: "Automatic", fuel: "Petrol", city: "Islamabad", condition: "New", bodyType: "SUV", img: "https://images.unsplash.com/photo-1596429924638-d1f8a252df7d?w=600&h=380&fit=crop&auto=format", featured: true, badge: "Top Pick", color: "Silver" },
@@ -200,7 +200,7 @@ function Navbar({ page, setPage }: { page: Page; setPage: (p: Page) => void }) {
             <img src={xyzLogo} alt="XYZ Motors Logo" className="h-9 w-auto object-contain" style={{ filter: "brightness(0.3) contrast(1.2)" }} />
             <div className="hidden sm:block">
               <span className="text-xl font-bold text-[#0F2B4C] tracking-tight leading-none block">XYZ Motors</span>
-              <span className="text-[10px] font-semibold text-slate-400 tracking-[0.15em] uppercase">Certified Dealership</span>
+              
             </div>
           </button>
 
@@ -259,101 +259,11 @@ function Footer({ setPage }: { setPage: (p: Page) => void }) {
   const go = (p: Page) => { setPage(p); window.scrollTo({ top: 0, behavior: "smooth" }); };
   return (
     <footer className="bg-[#060E1A] text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Top strip */}
-        <div className="border-b border-white/10 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="flex items-center gap-4">
-            <div className="w-11 h-11 rounded bg-[#1E56A0] flex items-center justify-center flex-shrink-0">
-              <PhoneCall className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <p className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">Call Us Anytime</p>
-              <a href="tel:+923001234567" className="text-base font-bold hover:text-blue-400 transition-colors">0300-1234567</a>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="w-11 h-11 rounded bg-[#1E56A0] flex items-center justify-center flex-shrink-0">
-              <Mail className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <p className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">Email Support</p>
-              <a href="mailto:info@xyzmotors.pk" className="text-base font-bold hover:text-blue-400 transition-colors">info@xyzmotors.pk</a>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="w-11 h-11 rounded bg-[#1E56A0] flex items-center justify-center flex-shrink-0">
-              <MapPin className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <p className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">Main Showroom</p>
-              <p className="text-base font-bold">Main Boulevard, Gulberg III, Lahore</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Main footer */}
-        <div className="py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-          <div>
-            <div className="flex items-center gap-3 mb-5">
-              <img src={xyzLogo} alt="XYZ Motors" className="h-8 w-auto" style={{ filter: "brightness(0) invert(1)" }} />
-              <span className="text-lg font-bold tracking-tight">XYZ Motors</span>
-            </div>
-            <p className="text-sm text-slate-400 leading-relaxed mb-6">Pakistan's trusted automotive partner since 2007. Buying, selling, renting, and financing vehicles across major cities with complete transparency.</p>
-            <div className="flex gap-3">
-              {[Facebook, Instagram, Twitter, Youtube].map((Icon, i) => (
-                <a key={i} href="#" className="w-8 h-8 rounded bg-white/10 hover:bg-[#1E56A0] flex items-center justify-center transition-colors">
-                  <Icon className="w-4 h-4 text-white" />
-                </a>
-              ))}
-            </div>
-          </div>
-          <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-white mb-5">Our Services</h4>
-            <ul className="space-y-3">
-              {[["Buy a Car", "inventory"], ["Sell Your Car", "sell"], ["Car Rental", "rental"], ["Car Financing", "finance"], ["Car Exchange", "inventory"], ["Vehicle Inspection", "about"]].map(([label, pg]) => (
-                <li key={label}>
-                  <button onClick={() => go(pg as Page)} className="text-sm text-slate-400 hover:text-white transition-colors flex items-center gap-2">
-                    <ChevronRight className="w-3.5 h-3.5 text-[#1E56A0]" />{label}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-white mb-5">Quick Links</h4>
-            <ul className="space-y-3">
-              {[["About XYZ Motors", "about"], ["Blog & News", "blog"], ["Contact Us", "contact"], ["Terms & Conditions", "contact"], ["Privacy Policy", "contact"], ["Careers", "about"]].map(([label, pg]) => (
-                <li key={label}>
-                  <button onClick={() => go(pg as Page)} className="text-sm text-slate-400 hover:text-white transition-colors flex items-center gap-2">
-                    <ChevronRight className="w-3.5 h-3.5 text-[#1E56A0]" />{label}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-white mb-5">Cities We Serve</h4>
-            <ul className="space-y-3">
-              {["Lahore", "Karachi", "Islamabad", "Rawalpindi", "Faisalabad", "Multan", "Peshawar", "Sialkot"].map(city => (
-                <li key={city}>
-                  <span className="text-sm text-slate-400 flex items-center gap-2"><MapPin className="w-3.5 h-3.5 text-[#1E56A0]" />{city}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Bottom bar */}
-        <div className="border-t border-white/10 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-slate-500">© 2025 XYZ Motors (Pvt.) Ltd. All rights reserved. Registered with SECP.</p>
-          <div className="flex items-center gap-4">
-            <span className="text-xs text-slate-500">PTA Certified</span>
-            <span className="w-1 h-1 rounded-full bg-slate-600" />
-            <span className="text-xs text-slate-500">PAMA Member</span>
-            <span className="w-1 h-1 rounded-full bg-slate-600" />
-            <span className="text-xs text-slate-500">ISO 9001:2015</span>
-          </div>
-        </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p className="text-sm font-medium text-slate-400">© 2026 XYZ Motors. All rights reserved.</p>
+        <p className="text-sm font-medium text-slate-400">
+          Designed and Developed by <a href="https://www.instagram.com/norvexmanagement/" target="_blank" rel="noreferrer" className="text-blue-400 hover:underline">Norvex Management</a>
+        </p>
       </div>
     </footer>
   );
@@ -404,12 +314,12 @@ function HomePage({ setPage, setSelectedCar }: { setPage: (p: Page) => void; set
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20">
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 mb-6">
-              <div className="w-8 h-px bg-[#1E56A0]" />
+              
               <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-blue-400">Pakistan's Premium Dealership</span>
             </div>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.05] tracking-tight">
               Drive Your<br />
-              <span className="text-transparent" style={{ WebkitTextStroke: "2px rgba(255,255,255,0.5)" }}>Dream</span>{" "}
+              <span>Dream</span>{" "}
               <span className="text-[#4A9EE8]">Car</span><br />
               Today.
             </h1>
@@ -471,7 +381,7 @@ function HomePage({ setPage, setSelectedCar }: { setPage: (p: Page) => void; set
       {/* FEATURED CATEGORIES */}
       <section className="bg-white py-8 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
+          <div className="flex overflow-x-auto snap-x hide-scrollbar gap-3 pb-2">
             {[
               { icon: Car, label: "Sedans", count: 7 },
               { icon: Package, label: "SUVs", count: 8 },
@@ -480,12 +390,9 @@ function HomePage({ setPage, setSelectedCar }: { setPage: (p: Page) => void; set
               { icon: Wrench, label: "Pickups", count: 2 },
               { icon: Wallet, label: "Budget Cars", count: 5 },
             ].map(({ icon: Icon, label, count }) => (
-              <button key={label} onClick={() => setPage("inventory")} className="flex flex-col items-center gap-2 py-4 px-2 rounded-lg bg-slate-50 hover:bg-[#1E56A0] group transition-all duration-200 border border-slate-100 hover:border-[#1E56A0]">
-                <div className="w-10 h-10 rounded-lg bg-white group-hover:bg-white/20 flex items-center justify-center shadow-sm transition-colors">
-                  <Icon className="w-5 h-5 text-[#1E56A0] group-hover:text-white transition-colors" />
-                </div>
-                <span className="text-[11px] font-bold text-slate-700 group-hover:text-white transition-colors">{label}</span>
-                <span className="text-[10px] text-slate-400 group-hover:text-blue-200 transition-colors">{count} cars</span>
+              <button key={label} onClick={() => setPage("inventory")} className="flex items-center gap-3 py-2 px-4 rounded-full bg-slate-50 hover:bg-[#1E56A0] group transition-all duration-200 border border-slate-200 hover:border-[#1E56A0] flex-shrink-0 snap-center">
+                <Icon className="w-4 h-4 text-[#1E56A0] group-hover:text-white transition-colors" />
+                <span className="text-xs font-bold text-slate-700 group-hover:text-white transition-colors">{label}</span>
               </button>
             ))}
           </div>
@@ -563,21 +470,22 @@ function HomePage({ setPage, setSelectedCar }: { setPage: (p: Page) => void; set
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: Shield, title: "Verified Vehicles", desc: "Every car undergoes a rigorous 150-point inspection before listing. No hidden damage, no surprises." },
-              { icon: Banknote, title: "Easy Financing", desc: "Bank loan approvals within 48 hours through HBL, UBL, Meezan Bank, and Bank Alfalah." },
+              { icon: Shield, title: "Verified Vehicles", desc: "Every car undergoes a rigorous 150 point inspection before listing. No hidden damage no surprises." },
+              { icon: Banknote, title: "Easy Financing", desc: "Bank loan approvals within 48 hours through HBL UBL Meezan Bank and Bank Alfalah." },
               { icon: Award, title: "Certified Dealership", desc: "PAMA registered and ISO certified dealership with over 18 years of industry presence in Pakistan." },
-              { icon: Headphones, title: "24/7 After-Sale Support", desc: "Our dedicated support team is available around the clock for any post-purchase assistance." },
-              { icon: BadgeCheck, title: "Transparent Pricing", desc: "Fixed, no-negotiation pricing with complete cost breakdown. No hidden fees or surprise charges." },
+              { icon: Headphones, title: "24/7 After Sale Support", desc: "Our dedicated support team is available around the clock for any post purchase assistance." },
+              { icon: BadgeCheck, title: "Transparent Pricing", desc: "Fixed no negotiation pricing with complete cost breakdown. No hidden fees or surprise charges." },
               { icon: Globe, title: "Nationwide Delivery", desc: "We deliver your purchased or rented vehicle to any major city across Pakistan within 48 hours." },
-              { icon: Wrench, title: "Free Inspection", desc: "Complimentary pre-purchase vehicle health check for all certified pre-owned vehicles at our workshops." },
-              { icon: FileText, title: "Clear Documentation", desc: "We handle all transfer paperwork, tax clearance, and registration formalities on your behalf." },
+              { icon: Wrench, title: "Free Inspection", desc: "Complimentary pre purchase vehicle health check for all certified pre owned vehicles at our workshops." },
+              { icon: FileText, title: "Clear Documentation", desc: "We handle all transfer paperwork tax clearance and registration formalities on your behalf." },
             ].map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="bg-slate-50 rounded-lg p-5 border border-slate-100 hover:border-[#1E56A0]/30 hover:shadow-md transition-all duration-200 group">
-                <div className="w-11 h-11 rounded-lg bg-[#1E56A0] flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
-                  <Icon className="w-5 h-5 text-white" />
+              <div key={title} className="relative bg-white rounded-xl p-6 border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group overflow-hidden">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+                <div className="relative w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center mb-5 group-hover:bg-[#1E56A0] transition-colors duration-300 shadow-sm">
+                  <Icon className="w-6 h-6 text-[#1E56A0] group-hover:text-white transition-colors duration-300" />
                 </div>
-                <h3 className="text-sm font-bold text-[#0D1B2A] mb-2">{title}</h3>
-                <p className="text-xs text-slate-500 leading-relaxed">{desc}</p>
+                <h3 className="relative text-base font-extrabold text-[#0D1B2A] mb-3 tracking-tight">{title}</h3>
+                <p className="relative text-sm text-slate-500 leading-relaxed font-medium">{desc}</p>
               </div>
             ))}
           </div>
@@ -647,23 +555,6 @@ function HomePage({ setPage, setSelectedCar }: { setPage: (p: Page) => void; set
         </div>
       </section>
 
-      {/* BANK PARTNERS */}
-      <section className="py-16 bg-slate-50 border-y border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-xs font-bold uppercase tracking-[0.2em] text-slate-400 mb-8">Financing Partners</p>
-          <div className="flex flex-wrap items-center justify-center gap-8">
-            {BANKS.map(bank => (
-              <div key={bank.name} className="flex flex-col items-center gap-2 group">
-                <div className="w-20 h-12 rounded-lg bg-white border border-slate-200 flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow px-3">
-                  <span className="text-sm font-extrabold" style={{ color: bank.color }}>{bank.name}</span>
-                </div>
-                <span className="text-[10px] text-slate-400 text-center">{bank.rate} p.a.</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* STATISTICS */}
       <section className="py-16" style={{ background: "#0F2B4C" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -673,39 +564,6 @@ function HomePage({ setPage, setSelectedCar }: { setPage: (p: Page) => void; set
                 <div className="text-4xl md:text-5xl font-extrabold text-white mb-2">{s.value}</div>
                 <div className="text-sm text-blue-300 font-medium">{s.label}</div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* BLOG */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
-            <SectionHeader eyebrow="Automotive Insights" title="Latest News & Buying Guides" subtitle="Expert advice, comparisons, and market insights for Pakistani car buyers." />
-            <button onClick={() => setPage("blog")} className="flex items-center gap-2 text-[#1E56A0] font-semibold text-sm hover:gap-3 transition-all duration-200 mb-12 md:mb-0">
-              View All Articles <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {BLOG_POSTS.slice(0, 3).map(post => (
-              <article key={post.id} className="bg-white rounded-lg overflow-hidden border border-slate-100 shadow-sm hover:shadow-md transition-shadow cursor-pointer group" onClick={() => setPage("blog")}>
-                <div className="overflow-hidden h-48">
-                  <img src={post.img} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                </div>
-                <div className="p-5">
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="text-[10px] font-bold uppercase tracking-wider bg-blue-50 text-[#1E56A0] px-2 py-0.5 rounded">{post.category}</span>
-                    <span className="text-[11px] text-slate-400 flex items-center gap-1"><Clock className="w-3 h-3" />{post.readTime} read</span>
-                  </div>
-                  <h3 className="text-sm font-bold text-[#0D1B2A] leading-snug mb-2 group-hover:text-[#1E56A0] transition-colors">{post.title}</h3>
-                  <p className="text-xs text-slate-500 leading-relaxed">{post.excerpt}</p>
-                  <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-100">
-                    <span className="text-[11px] text-slate-400 flex items-center gap-1"><Calendar className="w-3 h-3" />{post.date}</span>
-                    <span className="text-[11px] font-semibold text-[#1E56A0] flex items-center gap-1">Read More <ArrowRight className="w-3 h-3" /></span>
-                  </div>
-                </div>
-              </article>
             ))}
           </div>
         </div>
@@ -1602,17 +1460,19 @@ function AboutPage({ setPage }: { setPage: (p: Page) => void }) {
       </section>
 
       {/* Values */}
-      <section className="py-16 bg-[#F8FAFC]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <SectionHeader eyebrow="Our Values" title="Customer-First Philosophy" subtitle="Everything we do is guided by these core principles." />
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mt-8">
-            {[{ icon: Shield, label: "Trust", desc: "We operate with complete transparency — no hidden fees, no misleading claims." }, { icon: Award, label: "Excellence", desc: "ISO-certified processes ensure every interaction exceeds your expectations." }, { icon: ThumbsUp, label: "Integrity", desc: "Honest valuations and fair pricing — always. Our reputation is our greatest asset." }, { icon: Headphones, label: "Care", desc: "Our relationship with customers doesn't end at sale — it begins there." }].map(({ icon: Icon, label, desc }) => (
-              <div key={label} className="bg-white rounded-lg p-6 border border-slate-100 shadow-sm text-center">
-                <div className="w-12 h-12 rounded-full bg-[#1E56A0] flex items-center justify-center mx-auto mb-4">
-                  <Icon className="w-5 h-5 text-white" />
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <SectionHeader eyebrow="Our Values" title="Customer First Philosophy" subtitle="Everything we do is guided by these core principles." />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[{ icon: Shield, label: "Trust", desc: "We operate with complete transparency no hidden fees no misleading claims." }, { icon: Award, label: "Excellence", desc: "Certified processes ensure every interaction exceeds your expectations." }, { icon: ThumbsUp, label: "Integrity", desc: "Honest valuations and fair pricing always. Our reputation is our greatest asset." }, { icon: Headphones, label: "Care", desc: "Our relationship with customers doesn't end at sale it begins there." }].map(({ icon: Icon, label, desc }) => (
+              <div key={label} className="bg-slate-50 rounded-2xl p-8 border border-slate-100 hover:shadow-xl transition-all duration-300 text-center group">
+                <div className="w-16 h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center mx-auto mb-6 group-hover:bg-[#1E56A0] transition-colors duration-300">
+                  <Icon className="w-8 h-8 text-[#1E56A0] group-hover:text-white transition-colors duration-300" />
                 </div>
-                <h3 className="font-bold text-[#0D1B2A] mb-2">{label}</h3>
-                <p className="text-xs text-slate-500 leading-relaxed">{desc}</p>
+                <h3 className="text-lg font-black text-[#0D1B2A] mb-3">{label}</h3>
+                <p className="text-sm text-slate-500 font-medium leading-relaxed">{desc}</p>
               </div>
             ))}
           </div>
@@ -1879,6 +1739,116 @@ function ContactPage({ setPage }: { setPage: (p: Page) => void }) {
 
 // ─── MAIN APP ─────────────────────────────────────────────────────────────────
 export default function App() {
+  const [adminOpen, setAdminOpen] = useState(false);
+  const [adminAuth, setAdminAuth] = useState(false);
+  const [password, setPassword] = useState("");
+  const [, forceUpdate] = useState(0);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.shiftKey && e.key.toLowerCase() === "a") {
+        setAdminOpen(true);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  const AdminDashboard = () => {
+    const [view, setView] = useState("list");
+    const [editCar, setEditCar] = useState(null);
+
+    if (!adminAuth) {
+      return (
+        <div className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl p-8 max-w-sm w-full">
+            <h2 className="text-xl font-bold mb-4 text-[#0D1B2A]">Admin Login</h2>
+            <input type="password" placeholder="Password" className="w-full border rounded p-2 mb-4 text-[#0D1B2A]" value={password} onChange={e => setPassword(e.target.value)} />
+            <div className="flex gap-2">
+              <button className="flex-1 bg-slate-200 text-[#0D1B2A] p-2 rounded" onClick={() => setAdminOpen(false)}>Cancel</button>
+              <button className="flex-1 bg-blue-600 text-white p-2 rounded" onClick={() => {
+                if (password === "xyzadmin") setAdminAuth(true);
+                else alert("Incorrect Password");
+              }}>Login</button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="fixed inset-0 bg-white z-[100] overflow-y-auto text-[#0D1B2A]">
+        <div className="max-w-5xl mx-auto p-6">
+          <div className="flex justify-between items-center mb-8 border-b pb-4">
+            <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+            <div className="flex gap-4">
+              <button onClick={() => { setEditCar({ id: Date.now(), make:"", model:"", variant:"", year:2024, price:0, mileage:0, transmission:"Automatic", fuel:"Petrol", city:"", condition:"New", bodyType:"Sedan", img:"", featured: false, badge: "" }); setView("edit"); }} className="bg-green-600 text-white px-4 py-2 rounded font-bold">+ Add Car</button>
+              <button onClick={() => setAdminOpen(false)} className="bg-red-600 text-white px-4 py-2 rounded font-bold">Close</button>
+            </div>
+          </div>
+
+          {view === "list" && (
+            <div className="grid gap-4">
+              {VEHICLES.map(v => (
+                <div key={v.id} className="flex items-center gap-4 border p-4 rounded bg-slate-50">
+                  <img src={v.img} alt="car" className="w-24 h-16 object-cover rounded" />
+                  <div className="flex-1">
+                    <h3 className="font-bold">{v.make} {v.model} {v.year}</h3>
+                    <p className="text-sm text-slate-500">Rs. {v.price.toLocaleString()} | {v.condition} {v.badge ? `| Badge: ${v.badge}` : ""}</p>
+                  </div>
+                  <div className="flex gap-2 flex-wrap">
+                    <button onClick={() => { setEditCar({...v}); setView("edit"); }} className="bg-blue-600 text-white px-3 py-1 rounded">Edit</button>
+                    <button onClick={() => {
+                      VEHICLES = VEHICLES.filter(x => x.id !== v.id);
+                      forceUpdate(p => p + 1);
+                    }} className="bg-red-600 text-white px-3 py-1 rounded">Delete</button>
+                    <button onClick={() => {
+                      v.badge = "Sold Out";
+                      forceUpdate(p => p + 1);
+                    }} className="bg-orange-500 text-white px-3 py-1 rounded">Mark Sold</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {view === "edit" && editCar && (
+            <div className="max-w-2xl bg-slate-50 p-6 rounded border">
+              <h2 className="font-bold mb-4">{editCar.id > 1000 ? "Add New Car" : "Edit Car"}</h2>
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                <input placeholder="Make" value={editCar.make} onChange={e => setEditCar({...editCar, make: e.target.value})} className="border p-2 rounded" />
+                <input placeholder="Model" value={editCar.model} onChange={e => setEditCar({...editCar, model: e.target.value})} className="border p-2 rounded" />
+                <input placeholder="Variant" value={editCar.variant} onChange={e => setEditCar({...editCar, variant: e.target.value})} className="border p-2 rounded" />
+                <input placeholder="Year" type="number" value={editCar.year} onChange={e => setEditCar({...editCar, year: parseInt(e.target.value)})} className="border p-2 rounded" />
+                <input placeholder="Price" type="number" value={editCar.price} onChange={e => setEditCar({...editCar, price: parseInt(e.target.value)})} className="border p-2 rounded" />
+                <input placeholder="Mileage" type="number" value={editCar.mileage} onChange={e => setEditCar({...editCar, mileage: parseInt(e.target.value)})} className="border p-2 rounded" />
+                <input placeholder="Image URL" value={editCar.img} onChange={e => setEditCar({...editCar, img: e.target.value})} className="border p-2 rounded col-span-2" />
+                <input placeholder="City" value={editCar.city} onChange={e => setEditCar({...editCar, city: e.target.value})} className="border p-2 rounded" />
+                <select value={editCar.condition} onChange={e => setEditCar({...editCar, condition: e.target.value})} className="border p-2 rounded"><option value="New">New</option><option value="Used">Used</option></select>
+                <select value={editCar.bodyType} onChange={e => setEditCar({...editCar, bodyType: e.target.value})} className="border p-2 rounded"><option value="Sedan">Sedan</option><option value="SUV">SUV</option><option value="Hatchback">Hatchback</option><option value="Crossover">Crossover</option><option value="Pickup">Pickup</option></select>
+                <select value={editCar.transmission} onChange={e => setEditCar({...editCar, transmission: e.target.value})} className="border p-2 rounded"><option value="Automatic">Automatic</option><option value="Manual">Manual</option></select>
+                <select value={editCar.fuel} onChange={e => setEditCar({...editCar, fuel: e.target.value})} className="border p-2 rounded"><option value="Petrol">Petrol</option><option value="Diesel">Diesel</option><option value="Hybrid">Hybrid</option><option value="CNG">CNG</option></select>
+                <input placeholder="Badge (Optional)" value={editCar.badge || ''} onChange={e => setEditCar({...editCar, badge: e.target.value})} className="border p-2 rounded" />
+                <label className="flex items-center gap-2"><input type="checkbox" checked={editCar.featured || false} onChange={e => setEditCar({...editCar, featured: e.target.checked})} /> Featured</label>
+              </div>
+              <div className="flex gap-2">
+                <button onClick={() => {
+                  const idx = VEHICLES.findIndex(x => x.id === editCar.id);
+                  if (idx >= 0) VEHICLES[idx] = editCar;
+                  else VEHICLES.unshift(editCar);
+                  forceUpdate(p => p + 1);
+                  setView("list");
+                }} className="bg-green-600 text-white px-4 py-2 rounded font-bold">Save</button>
+                <button onClick={() => setView("list")} className="bg-slate-300 px-4 py-2 rounded font-bold">Cancel</button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
+
+
   const [page, setPage] = useState<Page>("home");
   const [selectedCar, setSelectedCar] = useState<Vehicle | null>(null);
 
@@ -1904,6 +1874,7 @@ export default function App() {
 
       <Footer setPage={navigate} />
 
+      {adminOpen && <AdminDashboard />}
       {/* WhatsApp FAB */}
       <a
         href="https://wa.me/923001234567"
