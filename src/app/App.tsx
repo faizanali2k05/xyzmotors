@@ -375,7 +375,7 @@ function HomePage({ setPage, setSelectedCar }: { setPage: (p: Page) => void; set
       <section className="relative min-h-[88vh] flex items-center overflow-hidden" style={{ background: "linear-gradient(135deg, #060E1A 0%, #0F2B4C 50%, #1a3a6b 100%)" }}>
         <div className="absolute inset-0 overflow-hidden">
           <video autoPlay loop muted playsInline className="absolute top-1/2 left-1/2 w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 opacity-70">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-car-driving-through-the-city-at-night-9039-large.mp4" type="video/mp4" />
+            <source src="https://res.cloudinary.com/zse1lija/video/upload/v1785070615/video_fe93356041d1_ckxeix.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(6,14,26,0.85) 0%, rgba(15,43,76,0.5) 40%, rgba(6,14,26,0) 100%)" }} />
         </div>
