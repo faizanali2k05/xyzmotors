@@ -171,6 +171,7 @@ function CarCard({ vehicle, onClick }: { vehicle: Vehicle; onClick: () => void }
 function Navbar({ page, setPage, searchQuery, setSearchQuery, setSelectedCar }: { page: Page; setPage: (p: Page) => void; searchQuery?: string; setSearchQuery?: (q: string) => void; setSelectedCar?: (v: Vehicle) => void }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [searchFocused, setSearchFocused] = useState(false);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -229,16 +230,15 @@ function Navbar({ page, setPage, searchQuery, setSearchQuery, setSelectedCar }: 
                     placeholder="Search cars..." 
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
+                    onFocus={() => setSearchFocused(true)}
+                    onBlur={() => setTimeout(() => setSearchFocused(false), 200)}
                     className="bg-transparent border-none outline-none text-sm ml-2 w-40 text-slate-700 placeholder-slate-400 focus:ring-0"
                   />
                 </form>
-                {searchQuery && searchQuery.length > 0 && (
+                {searchFocused && searchQuery && searchQuery.length > 0 && (
                    <div className="hidden lg:block absolute top-full mt-2 w-80 bg-white shadow-xl rounded-lg border border-slate-100 overflow-hidden z-[100] left-0">
                      {VEHICLES.filter(v => (v.badge !== "Sold Out") && (v.make.toLowerCase().includes(searchQuery.toLowerCase()) || v.model.toLowerCase().includes(searchQuery.toLowerCase()))).slice(0, 5).map(v => (
                        <button type="button" key={v.id} onClick={() => { if(setSelectedCar) setSelectedCar(v); setPage("details"); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="w-full text-left px-4 py-3 hover:bg-slate-50 border-b border-slate-50 last:border-0 flex items-center gap-3">
-                         <div className="w-10 h-10 rounded overflow-hidden flex-shrink-0 bg-slate-100">
-                           <img src={v.image} alt={v.model} className="w-full h-full object-cover" />
-                         </div>
                          <div className="flex flex-col flex-1 overflow-hidden">
                            <span className="text-sm font-bold text-slate-800 whitespace-nowrap overflow-hidden text-ellipsis">{v.year} {v.make} {v.model}</span>
                            <span className="text-xs text-slate-500 font-medium">Rs. {(v.price / 100000).toFixed(2)} Lac</span>
@@ -280,16 +280,15 @@ function Navbar({ page, setPage, searchQuery, setSearchQuery, setSelectedCar }: 
                     placeholder="Search any car..." 
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
+                    onFocus={() => setSearchFocused(true)}
+                    onBlur={() => setTimeout(() => setSearchFocused(false), 200)}
                     className="bg-transparent border-none outline-none text-sm ml-2 w-full text-slate-700 placeholder-slate-400 focus:ring-0"
                   />
                 </form>
-                {searchQuery && searchQuery.length > 0 && (
+                {searchFocused && searchQuery && searchQuery.length > 0 && (
                    <div className="absolute top-full mt-1 w-full bg-white shadow-lg rounded-lg border border-slate-100 overflow-hidden z-[100]">
                      {VEHICLES.filter(v => (v.badge !== "Sold Out") && (v.make.toLowerCase().includes(searchQuery.toLowerCase()) || v.model.toLowerCase().includes(searchQuery.toLowerCase()))).slice(0, 5).map(v => (
                        <button type="button" key={v.id} onClick={() => { if(setSelectedCar) setSelectedCar(v); setPage("details"); setMenuOpen(false); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="w-full text-left px-4 py-3 hover:bg-slate-50 border-b border-slate-50 last:border-0 flex items-center gap-3">
-                         <div className="w-10 h-10 rounded overflow-hidden flex-shrink-0 bg-slate-100">
-                           <img src={v.image} alt={v.model} className="w-full h-full object-cover" />
-                         </div>
                          <div className="flex flex-col flex-1 overflow-hidden">
                            <span className="text-sm font-bold text-slate-800 whitespace-nowrap overflow-hidden text-ellipsis">{v.year} {v.make} {v.model}</span>
                            <span className="text-xs text-slate-500 font-medium">Rs. {(v.price / 100000).toFixed(2)} Lac</span>
@@ -441,20 +440,22 @@ function HomePage({ setPage, setSelectedCar }: { setPage: (p: Page) => void; set
       </section>
 
       {/* FEATURED CATEGORIES */}
-      <section className="bg-white py-8 border-b border-slate-100">
+      <section className="bg-white py-12 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex overflow-x-auto snap-x hide-scrollbar gap-3 pb-2">
+          <div className="flex overflow-x-auto justify-start sm:justify-center snap-x hide-scrollbar gap-8 pb-4">
             {[
-              { icon: Car, label: "Sedans", count: 7 },
-              { icon: Package, label: "SUVs", count: 8 },
-              { icon: Gauge, label: "Hatchbacks", count: 4 },
-              { icon: Navigation, label: "Crossovers", count: 3 },
-              { icon: Wrench, label: "Pickups", count: 2 },
-              { icon: Wallet, label: "Budget Cars", count: 5 },
-            ].map(({ icon: Icon, label, count }) => (
-              <button key={label} onClick={() => setPage("inventory")} className="relative flex flex-col items-center justify-center gap-2 w-28 h-28 rounded-sm bg-gradient-to-br from-[#1E56A0] to-[#0F2B4C] hover:from-[#2563EB] hover:to-[#1E56A0] shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex-shrink-0 snap-center group overflow-hidden border border-[#0F2B4C]">
-                <Icon className="w-8 h-8 text-blue-100 group-hover:text-white transition-colors z-10" />
-                <span className="text-[11px] font-bold text-blue-50 group-hover:text-white uppercase tracking-wider z-10">{label}</span>
+              { icon: (p:any) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>, label: "Sedans" },
+              { icon: (p:any) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M3 16V8a2 2 0 0 1 2-2h5l2.5 4h7.5a2 2 0 0 1 2 2v4"/><circle cx="7.5" cy="16" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/><path d="M10 16h5"/></svg>, label: "SUVs" },
+              { icon: (p:any) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M20 16V9a2 2 0 0 0-2-2h-3L11.5 3h-6A2 2 0 0 0 3.5 5v11"/><circle cx="8" cy="16" r="2.5"/><circle cx="16" cy="16" r="2.5"/><path d="M10.5 16h3"/></svg>, label: "Hatchbacks" },
+              { icon: (p:any) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M3 16v-6a2 2 0 0 1 2-2h3l3.5-3H16a2 2 0 0 1 2 2v9"/><circle cx="7.5" cy="16" r="2"/><circle cx="15.5" cy="16" r="2"/><path d="M9.5 16h4"/></svg>, label: "Crossovers" },
+              { icon: (p:any) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M22 17H2V9h5l3 3h12z"/><circle cx="7" cy="17" r="2"/><circle cx="18" cy="17" r="2"/></svg>, label: "Pickups" },
+              { icon: (p:any) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M18 15v-4a2 2 0 0 0-2-2h-2L11.5 5h-4A2 2 0 0 0 5.5 7v8"/><circle cx="8" cy="15" r="2"/><circle cx="15" cy="15" r="2"/><path d="M10 15h3"/></svg>, label: "Budget Cars" },
+            ].map(({ icon: Icon, label }) => (
+              <button key={label} onClick={() => setPage("inventory")} className="flex flex-col items-center justify-center gap-2 group flex-shrink-0 snap-center transition-transform hover:-translate-y-1">
+                <div className="w-16 h-16 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-blue-50 transition-colors shadow-[0_2px_10px_rgba(0,0,0,0.03)] border border-slate-100 group-hover:border-blue-100">
+                  <Icon className="w-8 h-8 text-slate-500 group-hover:text-[#1E56A0] transition-colors" />
+                </div>
+                <span className="text-[11px] font-bold text-slate-600 group-hover:text-[#1E56A0] tracking-wider uppercase">{label}</span>
               </button>
             ))}
           </div>
