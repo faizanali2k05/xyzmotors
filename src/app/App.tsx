@@ -168,9 +168,19 @@ function CarCard({ vehicle, onClick }: { vehicle: Vehicle; onClick: () => void }
 }
 
 // ─── NAVBAR ───────────────────────────────────────────────────────────────────
-function Navbar({ page, setPage }: { page: Page; setPage: (p: Page) => void }) {
+function Navbar({ page, setPage, searchQuery, setSearchQuery }: { page: Page; setPage: (p: Page) => void; searchQuery?: string; setSearchQuery?: (q: string) => void }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if(setSearchQuery) {
+      setPage("inventory");
+      setMenuOpen(false);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
 
   const navLinks: { label: string; page: Page }[] = [
     { label: "Inventory", page: "inventory" },
@@ -210,6 +220,18 @@ function Navbar({ page, setPage }: { page: Page; setPage: (p: Page) => void }) {
 
           {/* CTA + Mobile Menu */}
           <div className="flex items-center gap-3">
+            {setSearchQuery && (
+              <form onSubmit={handleSearchSubmit} className="hidden lg:flex items-center bg-slate-50 border border-slate-200 rounded-full px-3 py-1.5 mr-2">
+                <Search className="w-4 h-4 text-slate-400" />
+                <input 
+                  type="text" 
+                  placeholder="Search cars..." 
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="bg-transparent border-none outline-none text-sm ml-2 w-40 text-slate-700 placeholder-slate-400 focus:ring-0"
+                />
+              </form>
+            )}
             <a href="tel:+923405463601" className="hidden md:flex items-center gap-2 text-sm text-slate-600 font-medium hover:text-[#1E56A0] transition-colors">
               <PhoneCall className="w-4 h-4" />
               <span>0340-5463601</span>
@@ -228,6 +250,20 @@ function Navbar({ page, setPage }: { page: Page; setPage: (p: Page) => void }) {
       {menuOpen && (
         <div className="lg:hidden bg-white border-t border-slate-100 shadow-lg">
           <div className="px-4 py-3 space-y-1">
+            {setSearchQuery && (
+              <div className="pb-3 pt-1">
+                <form onSubmit={handleSearchSubmit} className="flex items-center bg-slate-50 border border-slate-200 rounded-full px-3 py-2 w-full">
+                  <Search className="w-4 h-4 text-slate-400" />
+                  <input 
+                    type="text" 
+                    placeholder="Search any car..." 
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="bg-transparent border-none outline-none text-sm ml-2 w-full text-slate-700 placeholder-slate-400 focus:ring-0"
+                  />
+                </form>
+              </div>
+            )}
             {navLinks.map(link => (
               <button key={link.page} onClick={() => go(link.page)} className="w-full text-left px-3 py-2.5 text-sm font-medium text-slate-700 hover:text-[#1E56A0] hover:bg-blue-50 rounded transition-colors">
                 {link.label}
@@ -575,7 +611,7 @@ function HomePage({ setPage, setSelectedCar }: { setPage: (p: Page) => void; set
 }
 
 // ─── INVENTORY PAGE ────────────────────────────────────────────────────────────
-function InventoryPage({ setPage, setSelectedCar }: { setPage: (p: Page) => void; setSelectedCar: (v: Vehicle) => void }) {
+function InventoryPage({ setPage, setSelectedCar, searchQuery }: { setPage: (p: Page) => void; setSelectedCar: (v: Vehicle) => void; searchQuery?: string }) {
   const [view, setView] = useState<"grid" | "list">("grid");
   const [filters, setFilters] = useState({ make: "", minPrice: "", maxPrice: "", year: "", transmission: "", fuel: "", bodyType: "", city: "", condition: "" });
   const [sort, setSort] = useState("newest");
@@ -592,6 +628,10 @@ function InventoryPage({ setPage, setSelectedCar }: { setPage: (p: Page) => void
   }, [showFilters]);
 
   const filtered = VEHICLES.filter(v => {
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      if (!v.make.toLowerCase().includes(q) && !v.model.toLowerCase().includes(q) && !v.variant.toLowerCase().includes(q) && !v.city.toLowerCase().includes(q)) return false;
+    }
     if (filters.make && v.make !== filters.make) return false;
     if (filters.minPrice && v.price < parseInt(filters.minPrice)) return false;
     if (filters.maxPrice && v.price > parseInt(filters.maxPrice)) return false;
@@ -1831,6 +1871,7 @@ export default function App() {
 
   const [page, setPage] = useState<Page>("home");
   const [selectedCar, setSelectedCar] = useState<Vehicle | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const navigate = useCallback((p: Page) => {
     setPage(p);
@@ -1839,12 +1880,12 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-background" style={{ fontFamily: "'Plus Jakarta Sans', 'Manrope', sans-serif" }}>
-      <Navbar page={page} setPage={navigate} />
+      <Navbar page={page} setPage={navigate} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
       {page === "home" && <HomePage setPage={navigate} setSelectedCar={setSelectedCar} />}
-      {page === "inventory" && <InventoryPage setPage={navigate} setSelectedCar={setSelectedCar} />}
+      {page === "inventory" && <InventoryPage setPage={navigate} setSelectedCar={setSelectedCar} searchQuery={searchQuery} />}
       {page === "details" && selectedCar && <CarDetailsPage car={selectedCar} setPage={navigate} />}
-      {page === "details" && !selectedCar && <InventoryPage setPage={navigate} setSelectedCar={setSelectedCar} />}
+      {page === "details" && !selectedCar && <InventoryPage setPage={navigate} setSelectedCar={setSelectedCar} searchQuery={searchQuery} />}
       {page === "rental" && <RentalPage setPage={navigate} />}
       {page === "sell" && <SellCarPage setPage={navigate} />}
       {page === "about" && <AboutPage setPage={navigate} />}
