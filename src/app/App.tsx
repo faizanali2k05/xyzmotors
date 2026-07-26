@@ -373,11 +373,11 @@ function HomePage({ setPage, setSelectedCar }: { setPage: (p: Page) => void; set
     <div className="pt-16">
       {/* HERO */}
       <section className="relative min-h-[88vh] flex items-center overflow-hidden" style={{ background: "linear-gradient(135deg, #060E1A 0%, #0F2B4C 50%, #1a3a6b 100%)" }}>
-        <div className="absolute inset-0">
-          <video autoPlay loop muted playsInline className="w-full h-full object-cover opacity-30">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-a-man-driving-a-car-on-a-road-13000-large.mp4" type="video/mp4" />
+        <div className="absolute inset-0 overflow-hidden">
+          <video autoPlay loop muted playsInline className="absolute top-1/2 left-1/2 w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 opacity-70">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-car-driving-through-the-city-at-night-9039-large.mp4" type="video/mp4" />
           </video>
-          <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(6,14,26,0.95) 0%, rgba(15,43,76,0.85) 50%, rgba(6,14,26,0.5) 100%)" }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(6,14,26,0.85) 0%, rgba(15,43,76,0.5) 40%, rgba(6,14,26,0) 100%)" }} />
         </div>
         {/* Decorative line */}
         <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-32 bg-[#1E56A0] rounded-r" />
@@ -442,20 +442,20 @@ function HomePage({ setPage, setSelectedCar }: { setPage: (p: Page) => void; set
       {/* FEATURED CATEGORIES */}
       <section className="bg-white py-12 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex overflow-x-auto justify-start sm:justify-center snap-x hide-scrollbar gap-8 pb-4">
+          <div className="flex overflow-x-auto justify-start sm:justify-center snap-x hide-scrollbar gap-8 pt-4 pb-4 px-2">
             {[
-              { icon: (p:any) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>, label: "Sedans" },
-              { icon: (p:any) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M3 16V8a2 2 0 0 1 2-2h5l2.5 4h7.5a2 2 0 0 1 2 2v4"/><circle cx="7.5" cy="16" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/><path d="M10 16h5"/></svg>, label: "SUVs" },
-              { icon: (p:any) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M20 16V9a2 2 0 0 0-2-2h-3L11.5 3h-6A2 2 0 0 0 3.5 5v11"/><circle cx="8" cy="16" r="2.5"/><circle cx="16" cy="16" r="2.5"/><path d="M10.5 16h3"/></svg>, label: "Hatchbacks" },
-              { icon: (p:any) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M3 16v-6a2 2 0 0 1 2-2h3l3.5-3H16a2 2 0 0 1 2 2v9"/><circle cx="7.5" cy="16" r="2"/><circle cx="15.5" cy="16" r="2"/><path d="M9.5 16h4"/></svg>, label: "Crossovers" },
-              { icon: (p:any) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M22 17H2V9h5l3 3h12z"/><circle cx="7" cy="17" r="2"/><circle cx="18" cy="17" r="2"/></svg>, label: "Pickups" },
-              { icon: (p:any) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M18 15v-4a2 2 0 0 0-2-2h-2L11.5 5h-4A2 2 0 0 0 5.5 7v8"/><circle cx="8" cy="15" r="2"/><circle cx="15" cy="15" r="2"/><path d="M10 15h3"/></svg>, label: "Budget Cars" },
+              { icon: (p:any) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M2 15v-1.5c0-1.1.9-2 2-2h2l2.5-3.5A2 2 0 0 1 10.2 7H15a2 2 0 0 1 1.7 1l3.5 3h1.3c1 0 1.5.5 1.5 1.5V15h-2"/><circle cx="19" cy="15" r="2"/><circle cx="7" cy="15" r="2"/><path d="M9 15h8"/><path d="M8.5 11.5L11 7.5h4.5L18 11.5z"/></svg>, label: "Sedans" },
+              { icon: (p:any) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M3 15v-3.5c0-1.1.9-2 2-2h3l2.5-3.5A2 2 0 0 1 12.2 5H18c1.1 0 2 .9 2 2v8h-1"/><circle cx="17" cy="15" r="2"/><circle cx="7" cy="15" r="2"/><path d="M9 15h6"/><path d="M8.5 9.5L12 5.5h5.5v4z"/></svg>, label: "SUVs" },
+              { icon: (p:any) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M3 15v-3c0-1.1.9-2 2-2h3l2-3A2 2 0 0 1 11.7 6H16a2 2 0 0 1 2 2l1 7h-1"/><circle cx="16" cy="15" r="2"/><circle cx="7" cy="15" r="2"/><path d="M9 15h5"/><path d="M8.5 10L11.5 6.5H16L17 10z"/></svg>, label: "Hatchbacks" },
+              { icon: (p:any) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M3 15v-3.5c0-1.1.9-2 2-2h3l2.5-3A2 2 0 0 1 12 6h4c1 0 1.5.5 2.5 1.5l2 7.5h-1"/><circle cx="17.5" cy="15" r="2"/><circle cx="7" cy="15" r="2"/><path d="M9 15h6.5"/><path d="M8.5 9.5L11.5 6.5h4l2 3z"/></svg>, label: "Crossovers" },
+              { icon: (p:any) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M3 15v-3c0-1.1.9-2 2-2h2.5l2.5-3.5A2 2 0 0 1 11.7 6H14c.5 0 1 .4 1 1v4h6v4h-2"/><circle cx="17" cy="15" r="2"/><circle cx="7" cy="15" r="2"/><path d="M9 15h6"/><path d="M8.5 11L11.5 6.5H14V11z"/></svg>, label: "Pickups" },
+              { icon: (p:any) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M4 15v-2.5c0-1.1.9-2 2-2h1.5l1.5-3A2 2 0 0 1 10.7 6H15c1.1 0 2 .9 2 2v7h-1"/><circle cx="14" cy="15" r="2"/><circle cx="7" cy="15" r="2"/><path d="M9 15h3"/><path d="M8.5 10.5L10.5 6.5h4v4z"/></svg>, label: "Budget Cars" },
             ].map(({ icon: Icon, label }) => (
-              <button key={label} onClick={() => setPage("inventory")} className="flex flex-col items-center justify-center gap-2 group flex-shrink-0 snap-center transition-transform hover:-translate-y-1">
-                <div className="w-16 h-16 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-blue-50 transition-colors shadow-[0_2px_10px_rgba(0,0,0,0.03)] border border-slate-100 group-hover:border-blue-100">
-                  <Icon className="w-8 h-8 text-slate-500 group-hover:text-[#1E56A0] transition-colors" />
+              <button key={label} onClick={() => setPage("inventory")} className="flex flex-col items-center justify-center gap-2 group flex-shrink-0 snap-center transition-transform hover:-translate-y-2">
+                <div className="w-16 h-16 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-[#1E56A0] transition-colors duration-300 shadow-[0_2px_10px_rgba(0,0,0,0.03)] border border-slate-100 group-hover:border-[#1E56A0]">
+                  <Icon className="w-8 h-8 text-slate-500 group-hover:text-white transition-colors duration-300" />
                 </div>
-                <span className="text-[11px] font-bold text-slate-600 group-hover:text-[#1E56A0] tracking-wider uppercase">{label}</span>
+                <span className="text-[11px] font-bold text-slate-600 group-hover:text-[#1E56A0] tracking-wider uppercase transition-colors">{label}</span>
               </button>
             ))}
           </div>
