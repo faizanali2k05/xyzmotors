@@ -168,7 +168,7 @@ function CarCard({ vehicle, onClick }: { vehicle: Vehicle; onClick: () => void }
 }
 
 // ─── NAVBAR ───────────────────────────────────────────────────────────────────
-function Navbar({ page, setPage, searchQuery, setSearchQuery }: { page: Page; setPage: (p: Page) => void; searchQuery?: string; setSearchQuery?: (q: string) => void }) {
+function Navbar({ page, setPage, searchQuery, setSearchQuery, setSelectedCar }: { page: Page; setPage: (p: Page) => void; searchQuery?: string; setSearchQuery?: (q: string) => void; setSelectedCar?: (v: Vehicle) => void }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -233,16 +233,21 @@ function Navbar({ page, setPage, searchQuery, setSearchQuery }: { page: Page; se
                   />
                 </form>
                 {searchQuery && searchQuery.length > 0 && (
-                   <div className="hidden lg:block absolute top-full mt-2 w-72 bg-white shadow-xl rounded-lg border border-slate-100 overflow-hidden z-[100] left-0">
-                     {VEHICLES.filter(v => v.make.toLowerCase().includes(searchQuery.toLowerCase()) || v.model.toLowerCase().includes(searchQuery.toLowerCase())).slice(0, 5).map(v => (
-                       <button type="button" key={v.id} onClick={() => { setSearchQuery(v.make + ' ' + v.model); setPage("inventory"); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="w-full text-left px-4 py-2 hover:bg-slate-50 border-b border-slate-50 last:border-0 flex items-center gap-2">
-                         <Search className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
-                         <span className="text-sm font-medium text-slate-800 whitespace-nowrap overflow-hidden text-ellipsis">{v.make} {v.model}</span>
-                         <span className="text-xs text-slate-400 ml-auto">{v.year}</span>
+                   <div className="hidden lg:block absolute top-full mt-2 w-80 bg-white shadow-xl rounded-lg border border-slate-100 overflow-hidden z-[100] left-0">
+                     {VEHICLES.filter(v => (v.badge !== "Sold Out") && (v.make.toLowerCase().includes(searchQuery.toLowerCase()) || v.model.toLowerCase().includes(searchQuery.toLowerCase()))).slice(0, 5).map(v => (
+                       <button type="button" key={v.id} onClick={() => { if(setSelectedCar) setSelectedCar(v); setPage("details"); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="w-full text-left px-4 py-3 hover:bg-slate-50 border-b border-slate-50 last:border-0 flex items-center gap-3">
+                         <div className="w-10 h-10 rounded overflow-hidden flex-shrink-0 bg-slate-100">
+                           <img src={v.image} alt={v.model} className="w-full h-full object-cover" />
+                         </div>
+                         <div className="flex flex-col flex-1 overflow-hidden">
+                           <span className="text-sm font-bold text-slate-800 whitespace-nowrap overflow-hidden text-ellipsis">{v.year} {v.make} {v.model}</span>
+                           <span className="text-xs text-slate-500 font-medium">Rs. {(v.price / 100000).toFixed(2)} Lac</span>
+                         </div>
+                         <span className="text-[10px] bg-green-100 text-green-700 px-2 py-1 rounded font-bold uppercase tracking-wider whitespace-nowrap">In Stock</span>
                        </button>
                      ))}
-                     {VEHICLES.filter(v => v.make.toLowerCase().includes(searchQuery.toLowerCase()) || v.model.toLowerCase().includes(searchQuery.toLowerCase())).length === 0 && (
-                       <div className="px-4 py-3 text-sm text-slate-500">No matching cars found</div>
+                     {VEHICLES.filter(v => (v.badge !== "Sold Out") && (v.make.toLowerCase().includes(searchQuery.toLowerCase()) || v.model.toLowerCase().includes(searchQuery.toLowerCase()))).length === 0 && (
+                       <div className="px-4 py-3 text-sm text-slate-500">No in-stock vehicles found</div>
                      )}
                    </div>
                 )}
@@ -280,15 +285,20 @@ function Navbar({ page, setPage, searchQuery, setSearchQuery }: { page: Page; se
                 </form>
                 {searchQuery && searchQuery.length > 0 && (
                    <div className="absolute top-full mt-1 w-full bg-white shadow-lg rounded-lg border border-slate-100 overflow-hidden z-[100]">
-                     {VEHICLES.filter(v => v.make.toLowerCase().includes(searchQuery.toLowerCase()) || v.model.toLowerCase().includes(searchQuery.toLowerCase())).slice(0, 5).map(v => (
-                       <button type="button" key={v.id} onClick={() => { setSearchQuery(v.make + ' ' + v.model); setPage("inventory"); setMenuOpen(false); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="w-full text-left px-4 py-2.5 hover:bg-slate-50 border-b border-slate-50 last:border-0 flex items-center gap-2">
-                         <Search className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
-                         <span className="text-sm font-medium text-slate-800 whitespace-nowrap overflow-hidden text-ellipsis">{v.make} {v.model}</span>
-                         <span className="text-xs text-slate-400 ml-auto">{v.year}</span>
+                     {VEHICLES.filter(v => (v.badge !== "Sold Out") && (v.make.toLowerCase().includes(searchQuery.toLowerCase()) || v.model.toLowerCase().includes(searchQuery.toLowerCase()))).slice(0, 5).map(v => (
+                       <button type="button" key={v.id} onClick={() => { if(setSelectedCar) setSelectedCar(v); setPage("details"); setMenuOpen(false); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="w-full text-left px-4 py-3 hover:bg-slate-50 border-b border-slate-50 last:border-0 flex items-center gap-3">
+                         <div className="w-10 h-10 rounded overflow-hidden flex-shrink-0 bg-slate-100">
+                           <img src={v.image} alt={v.model} className="w-full h-full object-cover" />
+                         </div>
+                         <div className="flex flex-col flex-1 overflow-hidden">
+                           <span className="text-sm font-bold text-slate-800 whitespace-nowrap overflow-hidden text-ellipsis">{v.year} {v.make} {v.model}</span>
+                           <span className="text-xs text-slate-500 font-medium">Rs. {(v.price / 100000).toFixed(2)} Lac</span>
+                         </div>
+                         <span className="text-[10px] bg-green-100 text-green-700 px-2 py-1 rounded font-bold uppercase tracking-wider whitespace-nowrap">In Stock</span>
                        </button>
                      ))}
-                     {VEHICLES.filter(v => v.make.toLowerCase().includes(searchQuery.toLowerCase()) || v.model.toLowerCase().includes(searchQuery.toLowerCase())).length === 0 && (
-                       <div className="px-4 py-3 text-sm text-slate-500">No vehicles found</div>
+                     {VEHICLES.filter(v => (v.badge !== "Sold Out") && (v.make.toLowerCase().includes(searchQuery.toLowerCase()) || v.model.toLowerCase().includes(searchQuery.toLowerCase()))).length === 0 && (
+                       <div className="px-4 py-3 text-sm text-slate-500">No in-stock vehicles found</div>
                      )}
                    </div>
                 )}
@@ -520,23 +530,22 @@ function HomePage({ setPage, setSelectedCar }: { setPage: (p: Page) => void; set
             <h2 className="mt-2 text-3xl md:text-4xl font-bold text-[#0D1B2A]">Pakistan's Most Trusted Dealership</h2>
             <p className="mt-3 text-slate-500 max-w-2xl mx-auto">Built on trust transparency and 18 years of customer satisfaction.</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="max-w-2xl mx-auto space-y-6 text-left">
             {[
-              { icon: Shield, title: "Real & Inspected", desc: "We check every car inside out before you even see it. No shady fixes, no surprises later." },
-              { icon: Banknote, title: "Super Fast", desc: "Pick a car, and you could be driving it home today. We don't drag things out." },
-              { icon: Headphones, title: "We Got Your Back", desc: "Bought a car and got a question at 2 AM? Call us. We're always here to help you out." },
-              { icon: BadgeCheck, title: "No Hidden Costs", desc: "What you see is what you pay. We hate surprise charges just as much as you do." },
-              { icon: Globe, title: "Delivered to You", desc: "Doesn't matter where you live in Pakistan. Buy it, and we'll bring it right to your door." },
-              { icon: Wrench, title: "Check It For Free", desc: "Bring your mechanic or use our setup for free. We want you to be 100% sure before buying." },
-              { icon: FileText, title: "We Do the Paperwork", desc: "Transfers, taxes, files—we handle all that headache so you don't have to worry." },
-            ].map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="relative bg-white rounded-xl p-6 border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group overflow-hidden">
-                <div className="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
-                <div className="relative w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center mb-5 group-hover:bg-[#1E56A0] transition-colors duration-300 shadow-sm">
-                  <Icon className="w-6 h-6 text-[#1E56A0] group-hover:text-white transition-colors duration-300" />
+              { title: "Real & Inspected", desc: "We check every car inside out before you even see it. No shady fixes, no surprises later." },
+              { title: "Super Fast", desc: "Pick a car, and you could be driving it home today. We don't drag things out." },
+              { title: "We Got Your Back", desc: "Bought a car and got a question at 2 AM? Call us. We're always here to help you out." },
+              { title: "No Hidden Costs", desc: "What you see is what you pay. We hate surprise charges just as much as you do." },
+              { title: "Delivered to You", desc: "Doesn't matter where you live in Pakistan. Buy it, and we'll bring it right to your door." },
+              { title: "Check It For Free", desc: "Bring your mechanic or use our setup for free. We want you to be 100% sure before buying." },
+              { title: "We Do the Paperwork", desc: "Transfers, taxes, files—we handle all that headache so you don't have to worry." },
+            ].map(({ title, desc }, i) => (
+              <div key={title} className="flex gap-4 items-start border-b border-slate-100 pb-5 last:border-0 last:pb-0">
+                <div className="w-8 h-8 rounded-full bg-blue-50 text-[#1E56A0] flex items-center justify-center flex-shrink-0 font-bold text-sm mt-0.5">{i + 1}</div>
+                <div>
+                  <h3 className="text-lg font-bold text-[#0D1B2A] mb-1">{title}</h3>
+                  <p className="text-slate-600 leading-relaxed text-base">{desc}</p>
                 </div>
-                <h3 className="relative text-base font-extrabold text-[#0D1B2A] mb-3 tracking-tight">{title}</h3>
-                <p className="relative text-sm text-slate-500 leading-relaxed font-medium">{desc}</p>
               </div>
             ))}
           </div>
@@ -1911,7 +1920,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-background" style={{ fontFamily: "'Plus Jakarta Sans', 'Manrope', sans-serif" }}>
-      <Navbar page={page} setPage={navigate} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <Navbar page={page} setPage={navigate} searchQuery={searchQuery} setSearchQuery={setSearchQuery} setSelectedCar={setSelectedCar} />
 
       {page === "home" && <HomePage setPage={navigate} setSelectedCar={setSelectedCar} />}
       {page === "inventory" && <InventoryPage setPage={navigate} setSelectedCar={setSelectedCar} searchQuery={searchQuery} />}
