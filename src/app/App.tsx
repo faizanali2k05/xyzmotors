@@ -221,16 +221,32 @@ function Navbar({ page, setPage, searchQuery, setSearchQuery }: { page: Page; se
           {/* CTA + Mobile Menu */}
           <div className="flex items-center gap-3">
             {setSearchQuery && (
-              <form onSubmit={handleSearchSubmit} className="hidden lg:flex items-center bg-slate-50 border border-slate-200 rounded-full px-3 py-1.5 mr-2">
-                <Search className="w-4 h-4 text-slate-400" />
-                <input 
-                  type="text" 
-                  placeholder="Search cars..." 
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="bg-transparent border-none outline-none text-sm ml-2 w-40 text-slate-700 placeholder-slate-400 focus:ring-0"
-                />
-              </form>
+              <div className="relative">
+                <form onSubmit={handleSearchSubmit} className="hidden lg:flex items-center bg-slate-50 border border-slate-200 rounded-full px-3 py-1.5 mr-2">
+                  <Search className="w-4 h-4 text-slate-400" />
+                  <input 
+                    type="text" 
+                    placeholder="Search cars..." 
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="bg-transparent border-none outline-none text-sm ml-2 w-40 text-slate-700 placeholder-slate-400 focus:ring-0"
+                  />
+                </form>
+                {searchQuery && searchQuery.length > 0 && (
+                   <div className="hidden lg:block absolute top-full mt-2 w-72 bg-white shadow-xl rounded-lg border border-slate-100 overflow-hidden z-[100] left-0">
+                     {VEHICLES.filter(v => v.make.toLowerCase().includes(searchQuery.toLowerCase()) || v.model.toLowerCase().includes(searchQuery.toLowerCase())).slice(0, 5).map(v => (
+                       <button type="button" key={v.id} onClick={() => { setSearchQuery(v.make + ' ' + v.model); setPage("inventory"); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="w-full text-left px-4 py-2 hover:bg-slate-50 border-b border-slate-50 last:border-0 flex items-center gap-2">
+                         <Search className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
+                         <span className="text-sm font-medium text-slate-800 whitespace-nowrap overflow-hidden text-ellipsis">{v.make} {v.model}</span>
+                         <span className="text-xs text-slate-400 ml-auto">{v.year}</span>
+                       </button>
+                     ))}
+                     {VEHICLES.filter(v => v.make.toLowerCase().includes(searchQuery.toLowerCase()) || v.model.toLowerCase().includes(searchQuery.toLowerCase())).length === 0 && (
+                       <div className="px-4 py-3 text-sm text-slate-500">No matching cars found</div>
+                     )}
+                   </div>
+                )}
+              </div>
             )}
             <a href="tel:+923405463601" className="hidden md:flex items-center gap-2 text-sm text-slate-600 font-medium hover:text-[#1E56A0] transition-colors">
               <PhoneCall className="w-4 h-4" />
@@ -251,8 +267,8 @@ function Navbar({ page, setPage, searchQuery, setSearchQuery }: { page: Page; se
         <div className="lg:hidden bg-white border-t border-slate-100 shadow-lg">
           <div className="px-4 py-3 space-y-1">
             {setSearchQuery && (
-              <div className="pb-3 pt-1">
-                <form onSubmit={handleSearchSubmit} className="flex items-center bg-slate-50 border border-slate-200 rounded-full px-3 py-2 w-full">
+              <div className="pb-3 pt-1 relative z-50">
+                <form onSubmit={handleSearchSubmit} className="flex items-center bg-slate-50 border border-slate-200 rounded-full px-3 py-2 w-full relative z-50">
                   <Search className="w-4 h-4 text-slate-400" />
                   <input 
                     type="text" 
@@ -262,6 +278,20 @@ function Navbar({ page, setPage, searchQuery, setSearchQuery }: { page: Page; se
                     className="bg-transparent border-none outline-none text-sm ml-2 w-full text-slate-700 placeholder-slate-400 focus:ring-0"
                   />
                 </form>
+                {searchQuery && searchQuery.length > 0 && (
+                   <div className="absolute top-full mt-1 w-full bg-white shadow-lg rounded-lg border border-slate-100 overflow-hidden z-[100]">
+                     {VEHICLES.filter(v => v.make.toLowerCase().includes(searchQuery.toLowerCase()) || v.model.toLowerCase().includes(searchQuery.toLowerCase())).slice(0, 5).map(v => (
+                       <button type="button" key={v.id} onClick={() => { setSearchQuery(v.make + ' ' + v.model); setPage("inventory"); setMenuOpen(false); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="w-full text-left px-4 py-2.5 hover:bg-slate-50 border-b border-slate-50 last:border-0 flex items-center gap-2">
+                         <Search className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
+                         <span className="text-sm font-medium text-slate-800 whitespace-nowrap overflow-hidden text-ellipsis">{v.make} {v.model}</span>
+                         <span className="text-xs text-slate-400 ml-auto">{v.year}</span>
+                       </button>
+                     ))}
+                     {VEHICLES.filter(v => v.make.toLowerCase().includes(searchQuery.toLowerCase()) || v.model.toLowerCase().includes(searchQuery.toLowerCase())).length === 0 && (
+                       <div className="px-4 py-3 text-sm text-slate-500">No vehicles found</div>
+                     )}
+                   </div>
+                )}
               </div>
             )}
             {navLinks.map(link => (
@@ -335,8 +365,10 @@ function HomePage({ setPage, setSelectedCar }: { setPage: (p: Page) => void; set
       {/* HERO */}
       <section className="relative min-h-[88vh] flex items-center overflow-hidden" style={{ background: "linear-gradient(135deg, #060E1A 0%, #0F2B4C 50%, #1a3a6b 100%)" }}>
         <div className="absolute inset-0">
-          <img src="https://images.unsplash.com/photo-1692406069831-0bb7ea297645?w=1920&h=1080&fit=crop&auto=format" alt="XYZ Motors Showroom" className="w-full h-full object-cover opacity-20" />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(6,14,26,0.95) 0%, rgba(15,43,76,0.8) 50%, rgba(6,14,26,0.4) 100%)" }} />
+          <video autoPlay loop muted playsInline className="w-full h-full object-cover opacity-30">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-a-man-driving-a-car-on-a-road-13000-large.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(6,14,26,0.95) 0%, rgba(15,43,76,0.85) 50%, rgba(6,14,26,0.5) 100%)" }} />
         </div>
         {/* Decorative line */}
         <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-32 bg-[#1E56A0] rounded-r" />
@@ -490,14 +522,13 @@ function HomePage({ setPage, setSelectedCar }: { setPage: (p: Page) => void; set
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: Shield, title: "Verified Vehicles", desc: "Every car undergoes a rigorous 150 point inspection before listing. No hidden damage no surprises." },
-              { icon: Banknote, title: "Fast Process", desc: "Complete your car purchase in less than 24 hours with our streamlined and efficient process." },
-
-              { icon: Headphones, title: "24/7 After Sale Support", desc: "Our dedicated support team is available around the clock for any post purchase assistance." },
-              { icon: BadgeCheck, title: "Transparent Pricing", desc: "Fixed no negotiation pricing with complete cost breakdown. No hidden fees or surprise charges." },
-              { icon: Globe, title: "Nationwide Delivery", desc: "We deliver your purchased or rented vehicle to any major city across Pakistan within 48 hours." },
-              { icon: Wrench, title: "Free Inspection", desc: "Complimentary pre purchase vehicle health check for all certified pre owned vehicles at our workshops." },
-              { icon: FileText, title: "Clear Documentation", desc: "We handle all transfer paperwork tax clearance and registration formalities on your behalf." },
+              { icon: Shield, title: "Real & Inspected", desc: "We check every car inside out before you even see it. No shady fixes, no surprises later." },
+              { icon: Banknote, title: "Super Fast", desc: "Pick a car, and you could be driving it home today. We don't drag things out." },
+              { icon: Headphones, title: "We Got Your Back", desc: "Bought a car and got a question at 2 AM? Call us. We're always here to help you out." },
+              { icon: BadgeCheck, title: "No Hidden Costs", desc: "What you see is what you pay. We hate surprise charges just as much as you do." },
+              { icon: Globe, title: "Delivered to You", desc: "Doesn't matter where you live in Pakistan. Buy it, and we'll bring it right to your door." },
+              { icon: Wrench, title: "Check It For Free", desc: "Bring your mechanic or use our setup for free. We want you to be 100% sure before buying." },
+              { icon: FileText, title: "We Do the Paperwork", desc: "Transfers, taxes, files—we handle all that headache so you don't have to worry." },
             ].map(({ icon: Icon, title, desc }) => (
               <div key={title} className="relative bg-white rounded-xl p-6 border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group overflow-hidden">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
